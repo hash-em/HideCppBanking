@@ -1,5 +1,4 @@
 #include "iostream"
-#include <cstdlib>
 #include "../headers/interface.h"
 #include "../headers/helpers.h"
 using namespace std;
@@ -8,7 +7,7 @@ using namespace std;
 int ini()
 {
     clearScreen();
-
+    printLine("Welcome");
     // TODO
 
     return 1;
