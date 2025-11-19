@@ -1,30 +1,6 @@
 #include "iostream"
 using namespace std;
-
-int submitNewLoan();//TODO
-int withdraw();//TODO
-int deposit();//TODO
-int viewDay();//TODO
-int undoLast(); //TODO
-
-
-struct loan{
-    string id;
-    string type;
-    float principal_amount;
-    float remain_balance;
-    string sart;
-    string end;
-    string loan_status;
-};
-struct trans{
-    string id;
-    string acc_num;
-    string type;
-    float amount;
-    string date;
-    bool undone;
-};
+#include "customer_activities.h"
 
 struct customer {
     string acc_num;
@@ -35,6 +11,6 @@ struct customer {
     string opening_date;
     string status;
     float balance;
-    Stack *transactions;
-    LoanList * loans;
+    loanList loans;
+    tranStack transactions;
 };
