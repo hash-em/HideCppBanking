@@ -11,23 +11,72 @@
       "balance":200.0,
       "loans" :[
         {
-          "id" :"0x12",
-          "type" :"small",
-          "amount" :11.0,
-          "remain_balance" :200.0,
-          "start" :"16/11/2025",
-          "end" :"26/12/2025",
-          "status" :"unpaid"
+          "id":"0x12",
+          "type":"small",
+          "amount":11.0,
+          "remain_balance":200.0,
+          "start":"16/11/2025",
+          "end":"26/12/2025",
+          "status":"unpaid"
+        },
+        {
+          "id":"0x22",
+          "type":"big",
+          "amount":22.0,
+          "remain_balance":100.0,
+          "start":"16/11/2035",
+          "end":"26/12/2075",
+          "status":"paid"
         }
       ],
-      "transactions" :[
+      "transactions":[
         {
-          "id" :"1x72",
-          "acc_num" :"102",
-          "type" :"small",
-          "amount" :131.0,
-          "date" :"19/11/2025",
-          "undone" :"false"
+          "id":"1x72",
+          "acc_num":"102",
+          "type":"small",
+          "amount":131.0,
+          "date":"19/11/2025",
+          "undone":"false"
+        }
+      ]
+     },
+     {
+      "acc_num":"2323",
+      "acc_type":"credit",
+      "iban":"7777777777",
+      "branch_code":"y",
+      "name":"mohamed",
+      "opening_date":"2006/07/31",
+      "status":"open",
+      "balance":200.0,
+      "loans" :[
+        {
+          "id":"0x22",
+          "type":"small",
+          "amount":11.0,
+          "remain_balance":200.0,
+          "start":"16/11/2025",
+          "end":"26/12/2025",
+          "status":"unpaid"
+        },
+        {
+          "id":"0x82",
+          "type":"big",
+          "amount":22.0,
+          "remain_balance":100.0,
+          "start":"16/11/2035",
+          "end":"26/12/2075",
+          "status":"paid"
+        }
+      ],
+      "transactions":[
+        {
+          "id":"1x72",
+          "acc_num":"102",
+          "type":"small",
+          "amount":131.0,
+          "date":"19/11/2025",
+          "undone":"false"
         }
       ]
      }

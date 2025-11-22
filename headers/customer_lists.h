@@ -18,6 +18,7 @@ int deposit();//TODO
 int viewDay();//TODO
 int undoLast(); //TODO
 customerList newCustomerList();
-void addTran(tranStack stack, tran object);
-void addLoan(loanList loans, Loan object);
-void addCustomer(customerList customers, customer object);
+void addTran(tranStack &stack, tran object);
+void addLoan(loanList &loans, Loan object);
+void addCustomer(customerList &customers, customer object);
+customerList parseCustomers();

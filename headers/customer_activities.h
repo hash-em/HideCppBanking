@@ -20,12 +20,24 @@ struct Loan{
     string status;
 };
 
+
+struct tranNode
+{
+    tran data;
+    tranNode *prev;
+};
+
 struct tranStack {
-    tran * last;
+    tranNode * last;
     int size;
 };
+
+struct LoanNode {
+    Loan data;
+    LoanNode * prev;
+    LoanNode * next;
+};
 struct loanList {
-    Loan loan ;
-    Loan * prev;
-    Loan * next;
+    LoanNode * head ;
+    int size;
 };

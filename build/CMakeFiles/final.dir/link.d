@@ -1,12 +1,12 @@
-HideCppBanking: \
+final: \
   /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/Scrt1.o \
   /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/crti.o \
   /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/crtbeginS.o \
-  CMakeFiles/HideCppBanking.dir/src/customer.cpp.o \
-  CMakeFiles/HideCppBanking.dir/src/employee.cpp.o \
-  CMakeFiles/HideCppBanking.dir/src/helpers.cpp.o \
-  CMakeFiles/HideCppBanking.dir/src/interface.cpp.o \
-  CMakeFiles/HideCppBanking.dir/src/main.cpp.o \
+  CMakeFiles/final.dir/src/customer.cpp.o \
+  CMakeFiles/final.dir/src/employee.cpp.o \
+  CMakeFiles/final.dir/src/helpers.cpp.o \
+  CMakeFiles/final.dir/src/interface.cpp.o \
+  CMakeFiles/final.dir/src/main.cpp.o \
   /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/libstdc++.so \
   /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/libm.so \
   /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/libm.so \
@@ -41,15 +41,15 @@ HideCppBanking: \
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/crtbeginS.o:
 
-CMakeFiles/HideCppBanking.dir/src/customer.cpp.o:
+CMakeFiles/final.dir/src/customer.cpp.o:
 
-CMakeFiles/HideCppBanking.dir/src/employee.cpp.o:
+CMakeFiles/final.dir/src/employee.cpp.o:
 
-CMakeFiles/HideCppBanking.dir/src/helpers.cpp.o:
+CMakeFiles/final.dir/src/helpers.cpp.o:
 
-CMakeFiles/HideCppBanking.dir/src/interface.cpp.o:
+CMakeFiles/final.dir/src/interface.cpp.o:
 
-CMakeFiles/HideCppBanking.dir/src/main.cpp.o:
+CMakeFiles/final.dir/src/main.cpp.o:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib/libstdc++.so:
 

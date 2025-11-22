@@ -15,4 +15,4 @@ file(GLOB SOURCES
 )
 
 # Create executable
-add_executable(HideCppBanking ${SOURCES})
+add_executable(final ${SOURCES})

@@ -7,3 +7,5 @@ Release/
 *.VC.db
 *.cache/
 key.txt
+.zed
+.zed/

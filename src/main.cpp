@@ -4,6 +4,9 @@
 int main(void){
 
     customerList customers;
+    customers = parseCustomers();
+    cout << customers.head->next->data.name << endl;
+
     return 0;
     //TODO
 

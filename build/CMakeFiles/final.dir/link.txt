@@ -1,0 +1,1 @@
+/usr/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/final.dir/link.d CMakeFiles/final.dir/src/customer.cpp.o CMakeFiles/final.dir/src/employee.cpp.o CMakeFiles/final.dir/src/helpers.cpp.o CMakeFiles/final.dir/src/interface.cpp.o CMakeFiles/final.dir/src/main.cpp.o -o final
