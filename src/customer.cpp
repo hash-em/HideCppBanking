@@ -1,13 +1,77 @@
-#include "../headers/helpers.h"
 #include "../headers/customer_lists.h"
-#include "fstream"
+#include <cstdlib>
+#include <fstream>
+#include <iostream>
+#include <string>
 
-int userInterface()
+int userInterface(customer &cust)
 {
-    clearScreen();
-    // TODO
-    return 1;
+
+    if (cust.acc_num == "0") return 8;
+    displayCustomer(cust);
+    printLine("Options");
+    int choice;
+    string options[7] = {"View loans",
+        "Submit new loan request",
+        "View Daily Transactions",
+        "Cancel Last Transaction",
+        "Withdaw Money",
+        "Deposit money",
+        "logout"
+    };
+    printOptions(options, 7);
+    cin >> choice;
+    if (choice < 1 || choice > 7)
+    {
+        printLine("Invalid choice");
+        userInterface(cust);
+    }
+    switch (choice) {
+        case 1 :
+        {
+            viewLoans(cust);
+            printLine("Loans ↑");
+            break;
+        }
+        case 2 :
+        {
+            submitNewLoan(cust);
+            printLine("Loan submitted for review");
+            break;
+        }
+        case 3 :
+        {
+            viewDay(cust);
+            printLine("Daily transactions ↑");
+            break;
+        }
+        case 4 :
+        {
+            undoLast(cust);
+            break;
+        }
+        case 5 :
+        {
+            withdraw(cust);
+            break;
+        }
+        case 6 :
+        {
+            deposit(cust);
+            break;
+        }
+        case 7 :
+        {
+            return 67;
+        }
+
+
+    }
+    updateData(cust);
+    int next = userInterface(cust);
+    return next;
 }
+
 customerList newCustomerList(){
     return customerList{nullptr,0};
 }
@@ -52,31 +116,155 @@ void addTran(tranStack &trans , tran transaction) // Hash
     trans.size++;
 };
 
-int submitNewLoan()
+int submitNewLoan(customer &cust)
 {
-    //TODO (do addLoan(...,...) then write loan in files) for HASHEM
+    string type,id,start,end,status;
+    float amount,remain;
+    printLine("New loan submission");
+    do{
+        cout << "Loan type (car, home, student, business) : ";
+        cin >> type;
+    }while(type != "car" && type != "home" && type != "student" && type != "business" );
+    cout << "Loan amount : ";
+    cin >> amount;
+    cout << "Loan  : start ";
+    cin >> start;
+    cout << "Loan  : end ";
+    cin >> end;
+    status = "onhold";
+    id = "0x"+ to_string((std::rand()*10000)%1000);
+    remain = cust.balance - amount;
+    Loan loan = {id,type,amount,remain,1,start,end,status};
+    addLoan(cust.loans, loan);
+    updateData(cust);
     return 1;
 };
 
-int withdraw(){
+int withdraw(customer &cust){
     //TODO
-    return 1;
+    clearScreen();
+    printLine("Select withdraw amount");
+    string options[3] = {"10.0","20.0","50.0"};
+    float amounts[3] = {10.0,20.0,50.0};
+    printOptions(options, 3);
+    int choice;
+    cin >> choice;
+    while (choice < 1 || choice > 3)
+    {
+        printLine("Invalid option");
+        cin >> choice;
+    };
+
+    if (amounts[choice-1] > cust.balance)
+    {
+        printLine("Not enough balance");
+        return 0;
+    }
+    tran new_t = {"0x"+to_string((std::rand()*1000)%100),cust.acc_num,"withdraw",amounts[choice-1],DateNow(),false};
+    addTran(cust.transactions, new_t);
+    cust.balance -= amounts[choice-1];
+    printLine("Withdraw Transaction Approved");
+    return 0;
 }
 
-int deposit(){
-    //TODO
-    return 1;
+int deposit(customer &cust){
+        //TODO
+        clearScreen();
+        printLine("Input deposit amount\nOptions");
+        float amount;
+        do {
+            cin >> amount;
+        }while (amount <= 0);
+        tran new_t = {"1x"+to_string((std::rand()*1000000)%10000),cust.acc_num,"deposit",amount,DateNow(),false};
+        addTran(cust.transactions, new_t);
+        cust.balance += amount;
+        printLine("Deposit Transaction Approved");
+        return 0;
+
 }
 
-int viewDay(){
+void displayCustomer(customer cust)
+{
+    cout << cust.acc_num+"|" + cust.name +
+    "\nIban : "+ cust.iban+
+    "\nBalance : " + to_string(cust.balance) << endl
+    ;
+};
+
+
+void viewLoans(customer cust){
+    clearScreen();
+    LoanNode * curr = cust.loans.head;
+    Loan loan;
+    while(curr)
+    {
+        loan = curr->data;
+        printLine("loan id : " +loan.id);
+        cout <<"Type : " + loan.type +
+        "\nAmount : " + to_string(loan.amount) +
+        "\nRemaining balance : " + to_string(loan.remain_balance)   +
+        "\ninterest : " + to_string(loan.interest) +
+        "\nStart date : " + loan.start +
+        "\nEnd date : " + loan.end +
+        "\nStatus : " + loan.status  << endl;
+       curr = curr->next;
+    }
+
     // TODO
-    return 1;
 }
 
-int undoLast(){
-    // TODO
-    return 1;
+
+void viewDay(customer cust){
+    clearScreen();
+    tranStack trans = cust.transactions;
+    tran tr;
+    tranNode*curr = trans.last;
+    string today = DateNow();
+    if (!(curr->data.date == today))
+    {
+        printLine("No transactions today");
+    }
+    while (curr && curr->data.date == today)
+    {
+        tr = curr->data;
+        printLine("Transaction id : " +tr.id);
+        cout <<
+        "Account number : " + tr.acc_num +
+        "\nType : " + tr.type +
+        "\nAmount : " + to_string(tr.amount) +
+        "\nDate : " + today +
+        "\nUndone : " + to_string(tr.undone)
+        << endl;
+        curr = curr->prev;
+    }
+    return;
 }
+
+int undoLast(customer &cust){
+    clearScreen();
+    tranStack tr = cust.transactions;
+    if (tr.last->data.undone == false)
+    {
+        float prev = cust.balance;
+        if (tr.last->data.type == "withdraw")
+        {
+            cust.balance += tr.last->data.amount;
+        }
+        else {
+            cust.balance -= tr.last->data.amount;
+        }
+        tr.last->data.undone=true;
+        printLine("Last transaction Undone ,Old balance : "+ to_string(prev) + ",New balance : "+to_string(cust.balance));
+
+    }
+    else {
+        printLine("No Change : Last Transaction Already Undone");
+    }
+
+    return 0;
+}
+
+
 
 ////////////////////// FILE PARSING ///////////////////////////
 
@@ -105,7 +293,7 @@ string parseStringValue(const char *&c)
 }
 
 float parseFloatValue(const char *&c)
-{
+    {
     string value;
     while (*c && *c != ',' && *c != ']' && *c != '}' && *c != '\n' && *c != '\r' && *c != ' ') {
         value += *c;
@@ -140,6 +328,7 @@ loanList parseLoans(const char *&c)
                     else if (key == "remain_balance") object.remain_balance = parseFloatValue(c);
                     else if (key == "amount") object.amount = parseFloatValue(c);
                     else if (key == "start") object.start = parseStringValue(c);
+                    else if (key == "interest") object.interest = parseFloatValue(c);
                     else if (key == "end") object.end = parseStringValue(c);
                     else if (key == "status") object.status = parseStringValue(c);
                 }
@@ -249,4 +438,104 @@ customerList parseCustomers()
     string buffer((istreambuf_iterator<char>(file)), istreambuf_iterator<char>());
     const char *c = buffer.c_str();
     return parse(c);
+}
+
+//////////////////////////////// FILE DUMPING /////////////////////////////////////////
+void updateData(customer cust)
+{
+    customerList customers = parseCustomers();
+    customerNode*curr = customers.head;
+    bool found = false;
+    while(curr && !found)
+    {
+        if (curr->data.acc_num == cust.acc_num)
+        {
+            curr->data=cust;
+            found = true;
+        }
+        curr = curr->next;
+    }
+    dumpCustomers(customers);
+}
+
+
+void dumpCustomers(customerList customers)
+{
+    std::ofstream outf;
+    outf.open("../data/customers.json");
+    if (!outf.is_open())
+    {
+        cout << "Unable to write data , exiting with no save";
+        return;
+    }
+    customerNode*curr = customers.head;
+    LoanNode* currLoan;
+    customer cust;
+    string tmp;
+    string content = "{\n\t\"Customers\" :[";
+    while(curr)
+    {
+        tmp = "";
+        cust = curr->data;
+        LoanNode* currLoan = cust.loans.head;
+        tranNode* currTran = cust.transactions.last;
+        tmp += ("\n\t {"
+            "\n\t  \"acc_num\":\""+cust.acc_num+'"'+','+
+            "\n\t  \"acc_type\":\""+cust.acc_type+'"'+','+
+            "\n\t  \"iban\":\""+cust.iban+'"'+','+
+            "\n\t  \"branch_code\":\""+cust.branch_code+'"'+','+
+            "\n\t  \"name\":\""+cust.name+'"'+','+
+            "\n\t  \"opening_date\":\""+cust.opening_date+'"'+','+
+            "\n\t  \"status\":\""+cust.status+'"'+','+
+            "\n\t  \"balance\":"+to_string(cust.balance)+','
+        );
+        tmp += "\n\t  \"loans\":[";
+        while(currLoan)
+            {
+                Loan loan = currLoan->data;
+                tmp += ("\n\t\t {"
+                    "\n\t\t\t  \"id\":\""+loan.id+'"'+','+
+                    "\n\t\t\t  \"type\":\""+loan.type+'"'+','+
+                    "\n\t\t\t  \"amount\":"+to_string(loan.amount)+','+
+                    "\n\t\t\t  \"interest\":"+to_string(loan.interest)+','+
+                    "\n\t\t\t  \"remain_balance\":"+to_string(loan.remain_balance)+','+
+                    "\n\t\t\t  \"start\":\""+loan.start+'"'+','+
+                    "\n\t\t\t  \"end\":\""+loan.end+'"'+','+
+                    "\n\t\t\t  \"status\":\""+loan.status+'"'+
+                    "\n\t\t\t }"
+                );
+                if (currLoan->next) tmp += ',';
+                currLoan = currLoan->next;
+            }
+        tmp += "\n\t\t ],";
+        tmp += "\n\t  \"transactions\":[";
+        while(currTran)
+            {
+                tran trans = currTran->data;
+                string undn;
+                if (trans.undone) {undn = "true";}
+                else undn = "false";
+
+                tmp += ("\n\t\t {"
+                    "\n\t\t\t  \"id\":\""+trans.id+'"'+','+
+                    "\n\t\t\t  \"acc_num\":\""+trans.acc_num+'\"'+','+
+                    "\n\t\t\t  \"type\":\""+trans.type+'\"'+','+
+                    "\n\t\t\t  \"amount\":"+to_string(trans.amount)+','+
+                    "\n\t\t\t  \"date\":\""+trans.date+'"'+','+
+                    "\n\t\t\t  \"undone\":\""+undn+'"'+
+                    "\n\t\t\t }"
+                );
+                if (currTran->prev) tmp += ',';
+                currTran = currTran->prev;
+            }
+        ;
+        tmp += "\n\t\t  ]";
+        tmp += "\n  \t}";
+        if (curr->next) tmp += ',';
+        content += tmp;
+        curr = curr->next;
+    }
+    content += "\n ]\n}";
+    outf << content;
+    outf.close();
 }

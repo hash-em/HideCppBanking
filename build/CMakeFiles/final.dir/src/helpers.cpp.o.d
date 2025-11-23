@@ -31,8 +31,8 @@ CMakeFiles/final.dir/src/helpers.cpp.o: \
  /usr/include/bits/pthreadtypes-arch.h \
  /usr/include/bits/atomic_wide_counter.h /usr/include/bits/struct_mutex.h \
  /usr/include/bits/struct_rwlock.h /usr/include/alloca.h \
- /usr/include/bits/stdlib-bsearch.h /usr/include/bits/stdlib-float.h \
- /usr/include/c++/15.2.1/bits/std_abs.h /usr/include/c++/15.2.1/iostream \
+ /usr/include/bits/stdlib-float.h /usr/include/c++/15.2.1/bits/std_abs.h \
+ /usr/include/c++/15.2.1/iostream \
  /usr/include/c++/15.2.1/bits/requires_hosted.h \
  /usr/include/c++/15.2.1/ostream /usr/include/c++/15.2.1/bits/ostream.h \
  /usr/include/c++/15.2.1/ios /usr/include/c++/15.2.1/iosfwd \
@@ -118,11 +118,11 @@ CMakeFiles/final.dir/src/helpers.cpp.o: \
  /usr/include/bits/types/__fpos_t.h /usr/include/bits/types/__fpos64_t.h \
  /usr/include/bits/types/struct_FILE.h \
  /usr/include/bits/types/cookie_io_functions_t.h \
- /usr/include/bits/stdio_lim.h /usr/include/bits/stdio.h \
- /usr/include/c++/15.2.1/cerrno /usr/include/errno.h \
- /usr/include/bits/errno.h /usr/include/linux/errno.h \
- /usr/include/asm/errno.h /usr/include/asm-generic/errno.h \
- /usr/include/asm-generic/errno-base.h /usr/include/bits/types/error_t.h \
+ /usr/include/bits/stdio_lim.h /usr/include/c++/15.2.1/cerrno \
+ /usr/include/errno.h /usr/include/bits/errno.h \
+ /usr/include/linux/errno.h /usr/include/asm/errno.h \
+ /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h \
+ /usr/include/bits/types/error_t.h \
  /usr/include/c++/15.2.1/bits/charconv.h \
  /usr/include/c++/15.2.1/bits/basic_string.tcc \
  /usr/include/c++/15.2.1/bits/memory_resource.h \
@@ -148,4 +148,28 @@ CMakeFiles/final.dir/src/helpers.cpp.o: \
  /usr/include/c++/15.2.1/bits/istream.tcc \
  /home/hashem/Documents/DS/proj_1/HideCppBanking/src/../headers/customer_lists.h \
  /home/hashem/Documents/DS/proj_1/HideCppBanking/src/../headers/customer.h \
- /home/hashem/Documents/DS/proj_1/HideCppBanking/src/../headers/customer_activities.h
+ /home/hashem/Documents/DS/proj_1/HideCppBanking/src/../headers/customer_activities.h \
+ /home/hashem/Documents/DS/proj_1/HideCppBanking/src/../headers/../headers/helpers.h \
+ /usr/include/c++/15.2.1/fstream /usr/include/c++/15.2.1/bits/codecvt.h \
+ /usr/include/c++/15.2.1/x86_64-pc-linux-gnu/bits/basic_file.h \
+ /usr/include/c++/15.2.1/x86_64-pc-linux-gnu/bits/c++io.h \
+ /usr/include/c++/15.2.1/bits/fstream.tcc /usr/include/c++/15.2.1/ctime \
+ /usr/include/c++/15.2.1/cmath /usr/include/math.h \
+ /usr/include/bits/math-vector.h /usr/include/bits/libm-simd-decl-stubs.h \
+ /usr/include/bits/flt-eval-method.h /usr/include/bits/fp-logb.h \
+ /usr/include/bits/fp-fast.h /usr/include/bits/mathcalls-macros.h \
+ /usr/include/bits/mathcalls-helper-functions.h \
+ /usr/include/bits/mathcalls.h /usr/include/bits/mathcalls-narrow.h \
+ /usr/include/bits/iscanonical.h /usr/include/c++/15.2.1/bits/specfun.h \
+ /usr/include/c++/15.2.1/limits /usr/include/c++/15.2.1/tr1/gamma.tcc \
+ /usr/include/c++/15.2.1/tr1/special_function_util.h \
+ /usr/include/c++/15.2.1/tr1/bessel_function.tcc \
+ /usr/include/c++/15.2.1/tr1/beta_function.tcc \
+ /usr/include/c++/15.2.1/tr1/ell_integral.tcc \
+ /usr/include/c++/15.2.1/tr1/exp_integral.tcc \
+ /usr/include/c++/15.2.1/tr1/hypergeometric.tcc \
+ /usr/include/c++/15.2.1/tr1/legendre_function.tcc \
+ /usr/include/c++/15.2.1/tr1/modified_bessel_func.tcc \
+ /usr/include/c++/15.2.1/tr1/poly_hermite.tcc \
+ /usr/include/c++/15.2.1/tr1/poly_laguerre.tcc \
+ /usr/include/c++/15.2.1/tr1/riemann_zeta.tcc

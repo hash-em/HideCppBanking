@@ -1,5 +1,9 @@
 #include "customer.h"
-
+#include "../headers/helpers.h"
+#include "fstream"
+#include <string>
+#include "ctime"
+using namespace std;
 struct customerNode {
     customer data;
     customerNode * next;
@@ -12,13 +16,21 @@ struct customerList {
 
 
 
-int submitNewLoan();//TODO
-int withdraw();//TODO
-int deposit();//TODO
-int viewDay();//TODO
-int undoLast(); //TODO
-customerList newCustomerList();
-void addTran(tranStack &stack, tran object);
-void addLoan(loanList &loans, Loan object);
-void addCustomer(customerList &customers, customer object);
-customerList parseCustomers();
+int submitNewLoan(customer & cust);//DONE//HASH
+void displayCustomer(customer cust);//DONE//HASH
+int withdraw(customer &cust);//DONE//HASH
+int deposit(customer &cust);//DONE//HASH
+void viewDay(customer cust);//DONE//HASH
+int undoLast(customer &cust); //DONE//HASH
+void viewLoans(customer cust);//DONE//HASH
+customerList newCustomerList();//DONE//HASH
+void addTran(tranStack &stack, tran object);//DONE//HASH
+void addLoan(loanList &loans, Loan object);//DONE//HASH
+void addCustomer(customerList &customers, customer object);//DONE//HASH
+tranStack newTranStack();//DONE//HASH
+loanList newLoanList();//DONE//HASH
+int userInterface(customer &cust);//DONE//HASH
+customerList newCustomerList();//DONE//HASH
+customerList parseCustomers();//DONE//HASH
+void updateData(customer cust);//DONE//HASH
+void dumpCustomers(customerList customers);//DONE//HASH

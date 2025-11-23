@@ -1,0 +1,4 @@
+Return 1 : Not implemented
+Return 0 : Works correctly
+Return 67 : logout
+Return 8 : invalid input

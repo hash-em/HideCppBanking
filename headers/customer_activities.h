@@ -15,6 +15,7 @@ struct Loan{
     string type;
     float amount;
     float remain_balance;
+    float interest;
     string start;
     string end;
     string status;
