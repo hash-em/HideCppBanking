@@ -8,7 +8,7 @@
 	  "name":"mohamed",
 	  "opening_date":"31/07/2006",
 	  "status":"open",
-	  "balance":281.000000,
+	  "balance":381.000000,
 	  "loans":[
 		 {
 			  "id":"0x12",
@@ -53,20 +53,28 @@
 		 ],
 	  "transactions":[
 		 {
-			  "id":"1x72",
+			  "id":"1x880",
 			  "acc_num":"102",
-			  "type":"withdraw",
-			  "amount":131.000000,
-			  "date":"19/11/2025",
+			  "type":"deposit",
+			  "amount":100.000000,
+			  "date":"23/11/2025",
+			  "undone":"false"
+			 },
+		 {
+			  "id":"1x-8800",
+			  "acc_num":"102",
+			  "type":"deposit",
+			  "amount":502.000000,
+			  "date":"23/11/2025",
 			  "undone":"true"
 			 },
 		 {
-			  "id":"1x039",
+			  "id":"1x4464",
 			  "acc_num":"102",
 			  "type":"deposit",
-			  "amount":1300.000000,
-			  "date":"22/11/2025",
-			  "undone":"false"
+			  "amount":10.000000,
+			  "date":"23/11/2025",
+			  "undone":"true"
 			 },
 		 {
 			  "id":"0x80",
@@ -77,11 +85,19 @@
 			  "undone":"false"
 			 },
 		 {
-			  "id":"1x4464",
+			  "id":"1x039",
 			  "acc_num":"102",
 			  "type":"deposit",
-			  "amount":10.000000,
-			  "date":"23/11/2025",
+			  "amount":1300.000000,
+			  "date":"22/11/2025",
+			  "undone":"false"
+			 },
+		 {
+			  "id":"1x72",
+			  "acc_num":"102",
+			  "type":"withdraw",
+			  "amount":131.000000,
+			  "date":"19/11/2025",
 			  "undone":"true"
 			 }
 		  ]
@@ -94,7 +110,7 @@
 	  "name":"Yassine bougatfa",
 	  "opening_date":"30/06/2009",
 	  "status":"open",
-	  "balance":230.000000,
+	  "balance":280.000000,
 	  "loans":[
 		 {
 			  "id":"0x22",
@@ -118,6 +134,22 @@
 			 }
 		 ],
 	  "transactions":[
+		 {
+			  "id":"1x4464",
+			  "acc_num":"2323",
+			  "type":"deposit",
+			  "amount":100.000000,
+			  "date":"23/11/2025",
+			  "undone":"false"
+			 },
+		 {
+			  "id":"0x80",
+			  "acc_num":"2323",
+			  "type":"withdraw",
+			  "amount":20.000000,
+			  "date":"23/11/2025",
+			  "undone":"true"
+			 },
 		 {
 			  "id":"1x-1904",
 			  "acc_num":"2323",
@@ -149,6 +181,14 @@
 			  "amount":131.000000,
 			  "date":"19/11/2025",
 			  "undone":"true"
+			 },
+		 {
+			  "id":"0x0",
+			  "acc_num":"2323",
+			  "type":"withdraw",
+			  "amount":50.000000,
+			  "date":"23/11/2025",
+			  "undone":"false"
 			 }
 		  ]
   	}
