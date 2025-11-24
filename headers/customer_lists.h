@@ -21,6 +21,8 @@ void displayCustomer(customer cust);//DONE//HASH
 int withdraw(customer &cust);//DONE//HASH
 int deposit(customer &cust);//DONE//HASH
 void viewDay(customer cust);//DONE//HASH
+void popTran(tranStack &tr);
+void addUndone(tran tr);
 int undoLast(customer &cust); //DONE//HASH
 void viewLoans(customer cust);//DONE//HASH
 customerList newCustomerList();//DONE//HASH

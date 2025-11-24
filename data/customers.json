@@ -8,97 +8,73 @@
 	  "name":"mohamed",
 	  "opening_date":"31/07/2006",
 	  "status":"open",
-	  "balance":381.000000,
+	  "balance":430.000000,
 	  "loans":[
 		 {
 			  "id":"0x12",
+			  "acc_num":"",
 			  "type":"withdraw",
 			  "amount":11.000000,
-			  "interest":-486926073807344514462653200990208.000000,
+			  "interest":-0.000000,
 			  "remain_balance":200.000000,
 			  "start":"16/11/2025",
 			  "end":"26/12/2025",
-			  "status":"approved"
+			  "status":"unpaid"
 			 },
 		 {
 			  "id":"0x22",
+			  "acc_num":"",
 			  "type":"deposit",
 			  "amount":22.000000,
-			  "interest":-486926073807344514462653200990208.000000,
+			  "interest":-0.000000,
 			  "remain_balance":100.000000,
 			  "start":"16/11/2035",
 			  "end":"26/12/2075",
-			  "status":"onhold"
-			 },
-		 {
-			  "id":"0x-496",
-			  "type":"withdraw",
-			  "amount":300.000000,
-			  "interest":-486926073807344514462653200990208.000000,
-			  "remain_balance":-19.000000,
-			  "start":"31/04/2025",
-			  "end":"23/07/2026",
-			  "status":"onhold"
-			 },
-		 {
-			  "id":"0x-496",
-			  "type":"home",
-			  "amount":900.000000,
-			  "interest":1.000000,
-			  "remain_balance":-619.000000,
-			  "start":"31/05/2025",
-			  "end":"26/06/2026",
-			  "status":"onhold"
+			  "status":"paid"
 			 }
 		 ],
 	  "transactions":[
 		 {
-			  "id":"1x880",
+			  "id":"0x0",
 			  "acc_num":"102",
-			  "type":"deposit",
-			  "amount":100.000000,
-			  "date":"23/11/2025",
-			  "undone":"false"
-			 },
-		 {
-			  "id":"1x-8800",
-			  "acc_num":"102",
-			  "type":"deposit",
-			  "amount":502.000000,
-			  "date":"23/11/2025",
-			  "undone":"true"
-			 },
-		 {
-			  "id":"1x4464",
-			  "acc_num":"102",
-			  "type":"deposit",
+			  "type":"withdraw",
 			  "amount":10.000000,
-			  "date":"23/11/2025",
-			  "undone":"true"
+			  "date":"24/11/2025"
 			 },
 		 {
-			  "id":"0x80",
+			  "id":"0x0",
 			  "acc_num":"102",
 			  "type":"withdraw",
 			  "amount":50.000000,
-			  "date":"23/11/2025",
-			  "undone":"false"
+			  "date":"24/11/2025"
 			 },
 		 {
-			  "id":"1x039",
-			  "acc_num":"102",
-			  "type":"deposit",
-			  "amount":1300.000000,
-			  "date":"22/11/2025",
-			  "undone":"false"
-			 },
-		 {
-			  "id":"1x72",
+			  "id":"0x0",
 			  "acc_num":"102",
 			  "type":"withdraw",
-			  "amount":131.000000,
-			  "date":"19/11/2025",
-			  "undone":"true"
+			  "amount":50.000000,
+			  "date":"24/11/2025"
+			 },
+		 {
+			  "id":"0x0",
+			  "acc_num":"102",
+			  "type":"withdraw",
+			  "amount":50.000000,
+			  "date":"24/11/2025"
+			 },
+		 {
+			  "id":"0x5824",
+			  "acc_num":"102",
+			  "type":"withdraw",
+			  "amount":10.000000,
+			  "date":"24/11/2025"
+			 },
+		 {
+			  "id":"0x4464",
+			  "acc_num":"102",
+			  "type":"withdraw",
+			  "amount":50.000000,
+			  "date":"24/11/2025"
 			 }
 		  ]
   	},
@@ -110,86 +86,32 @@
 	  "name":"Yassine bougatfa",
 	  "opening_date":"30/06/2009",
 	  "status":"open",
-	  "balance":280.000000,
+	  "balance":-2642.000000,
 	  "loans":[
 		 {
 			  "id":"0x22",
+			  "acc_num":"",
 			  "type":"withdraw",
 			  "amount":11.000000,
-			  "interest":-486888316636146310364268777701376.000000,
+			  "interest":-0.000000,
 			  "remain_balance":200.000000,
 			  "start":"16/11/2025",
 			  "end":"26/12/2025",
-			  "status":"declined"
+			  "status":"unpaid"
 			 },
 		 {
 			  "id":"0x82",
+			  "acc_num":"",
 			  "type":"deposit",
 			  "amount":22.000000,
-			  "interest":-486888316636146310364268777701376.000000,
+			  "interest":-0.000000,
 			  "remain_balance":100.000000,
 			  "start":"16/11/2035",
 			  "end":"26/12/2075",
-			  "status":"onhold"
+			  "status":"paid"
 			 }
 		 ],
 	  "transactions":[
-		 {
-			  "id":"1x4464",
-			  "acc_num":"2323",
-			  "type":"deposit",
-			  "amount":100.000000,
-			  "date":"23/11/2025",
-			  "undone":"false"
-			 },
-		 {
-			  "id":"0x80",
-			  "acc_num":"2323",
-			  "type":"withdraw",
-			  "amount":20.000000,
-			  "date":"23/11/2025",
-			  "undone":"true"
-			 },
-		 {
-			  "id":"1x-1904",
-			  "acc_num":"2323",
-			  "type":"deposit",
-			  "amount":16.000000,
-			  "date":"23/11/2025",
-			  "undone":"false"
-			 },
-		 {
-			  "id":"1x880",
-			  "acc_num":"2323",
-			  "type":"deposit",
-			  "amount":14.000000,
-			  "date":"23/11/2025",
-			  "undone":"false"
-			 },
-		 {
-			  "id":"0x-32",
-			  "acc_num":"2323",
-			  "type":"withdraw",
-			  "amount":50.000000,
-			  "date":"23/11/2025",
-			  "undone":"true"
-			 },
-		 {
-			  "id":"1x72",
-			  "acc_num":"102",
-			  "type":"withdraw",
-			  "amount":131.000000,
-			  "date":"19/11/2025",
-			  "undone":"true"
-			 },
-		 {
-			  "id":"0x0",
-			  "acc_num":"2323",
-			  "type":"withdraw",
-			  "amount":50.000000,
-			  "date":"23/11/2025",
-			  "undone":"false"
-			 }
 		  ]
   	}
  ]

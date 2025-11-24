@@ -36,7 +36,6 @@
           "type":"withdraw",
           "amount":131.0,
           "date":"19/11/2025",
-          "undone":"false"
         },
         {
           "id":"1x039",
@@ -44,7 +43,6 @@
           "type":"deposit",
           "amount":1300.0,
           "date":"22/11/2025",
-          "undone":"false"
         }
       ]
      },
@@ -83,8 +81,7 @@
           "acc_num":"102",
           "type":"withdraw",
           "amount":131.0,
-          "date":"19/11/2025",
-          "undone":"false"
+          "date":"19/11/2025"
         }
       ]
      }

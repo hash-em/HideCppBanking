@@ -12,6 +12,7 @@ struct tran{
 
 struct Loan{
     string id;
+    string acc_num;
     string type;
     float amount;
     float remain_balance;
