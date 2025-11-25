@@ -8,7 +8,7 @@
 	  "name":"mohamed",
 	  "opening_date":"31/07/2006",
 	  "status":"open",
-	  "balance":430.000000,
+	  "balance":650.000000,
 	  "loans":[
 		 {
 			  "id":"0x12",
@@ -34,48 +34,6 @@
 			 }
 		 ],
 	  "transactions":[
-		 {
-			  "id":"0x0",
-			  "acc_num":"102",
-			  "type":"withdraw",
-			  "amount":10.000000,
-			  "date":"24/11/2025"
-			 },
-		 {
-			  "id":"0x0",
-			  "acc_num":"102",
-			  "type":"withdraw",
-			  "amount":50.000000,
-			  "date":"24/11/2025"
-			 },
-		 {
-			  "id":"0x0",
-			  "acc_num":"102",
-			  "type":"withdraw",
-			  "amount":50.000000,
-			  "date":"24/11/2025"
-			 },
-		 {
-			  "id":"0x0",
-			  "acc_num":"102",
-			  "type":"withdraw",
-			  "amount":50.000000,
-			  "date":"24/11/2025"
-			 },
-		 {
-			  "id":"0x5824",
-			  "acc_num":"102",
-			  "type":"withdraw",
-			  "amount":10.000000,
-			  "date":"24/11/2025"
-			 },
-		 {
-			  "id":"0x4464",
-			  "acc_num":"102",
-			  "type":"withdraw",
-			  "amount":50.000000,
-			  "date":"24/11/2025"
-			 }
 		  ]
   	},
 	 {

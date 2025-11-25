@@ -206,7 +206,7 @@ int withdraw(customer &cust){
 int deposit(customer &cust){
         //TODO
         clearScreen();
-        printLine("Input deposit amount\nOptions");
+        printLine("Input deposit amount");
         float amount;
         do {
             cin >> amount;
@@ -257,7 +257,8 @@ void viewDay(customer cust){
     tran tr;
     tranNode*curr = trans.last;
     string today = DateNow();
-    if (!(curr->data.date == today))
+
+    if (!(curr && curr->data.date == today))
     {
         printLine("No transactions today");
     }
