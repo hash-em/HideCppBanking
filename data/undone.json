@@ -57,5 +57,33 @@
 			  "amount":10.000000,
 			  "date":"25/11/2025"
 			 },
+		 {
+			  "id":"0x9383",
+			  "acc_num":"102",
+			  "type":"withdraw",
+			  "amount":10.000000,
+			  "date":"25/11/2025"
+			 },
+		 {
+			  "id":"0x886",
+			  "acc_num":"102",
+			  "type":"withdraw",
+			  "amount":10.000000,
+			  "date":"26/11/2025"
+			 },
+		 {
+			  "id":"0x9383",
+			  "acc_num":"102",
+			  "type":"withdraw",
+			  "amount":50.000000,
+			  "date":"26/11/2025"
+			 },
+		 {
+			  "id":"0x9383",
+			  "acc_num":"102",
+			  "type":"withdraw",
+			  "amount":50.000000,
+			  "date":"26/11/2025"
+			 },
 ]
 }
