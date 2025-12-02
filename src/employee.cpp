@@ -1,233 +1,240 @@
+#include "../headers/employee.h"
+#include "../headers/employeearr.h"
 #include <iostream>
-#include "../headers/employee_list.h"
 #include <fstream>
-#include <sstream>
-using namespace std;
+#include <algorithm>
 
-employeeList employees;
-
-employeeList newEmployeeList() {
-    employeeList list;
-    list.head = nullptr;
-    list.size = 0;
-    return list;
+EmployeeArray createEmployeeArray() {
+    EmployeeArray arr;
+    arr.capacity = 10;
+    arr.size = 0;
+    arr.employees = new Employee[arr.capacity];
+    return arr;
 }
 
-void addEmployee(employeeList& list, Employee emp) {
-    Employee* node = new Employee;
-    node->id = emp.id;
-    node->firstName = emp.firstName;
-    node->lastName = emp.lastName;
-    node->address = emp.address;
-    node->salary = emp.salary;
-    node->hireDate = emp.hireDate;
-    node->branchCode = emp.branchCode;
-    node->next = nullptr;
-    if (!list.head) {
-        list.head = node;
-    } else {
-        Employee* temp = list.head;
-        while (temp->next) temp = temp->next;
-        temp->next = node;
+void resizeEmployeeArray(EmployeeArray& arr) {
+    int newCapacity = arr.capacity * 2;
+    Employee* newEmployees = new Employee[newCapacity];
+    for (int i = 0; i < arr.size; i++) {
+        newEmployees[i] = arr.employees[i];
     }
-    list.size++;
+    delete[] arr.employees;
+    arr.employees = newEmployees;
+    arr.capacity = newCapacity;
 }
 
-bool deleteEmployee(employeeList& list, int id) {
-    if (!list.head) return false;
-    Employee* curr = list.head;
-    Employee* prev = nullptr;
-    if (curr->id == id) {
-        list.head = curr->next;
-        delete curr;
-        list.size--;
-        return true;
+void addEmployee(EmployeeArray& arr, const Employee& emp) {
+    // Check if ID already exists
+    for (int i = 0; i < arr.size; i++) {
+        if (arr.employees[i].id == emp.id) {
+            cout << "Error: Employee ID already exists!" << endl;
+            return;
+        }
     }
-    while (curr && curr->id != id) {
-        prev = curr;
-        curr = curr->next;
+
+    if (arr.size >= arr.capacity) {
+        resizeEmployeeArray(arr);
     }
-    if (!curr) return false;
-    prev->next = curr->next;
-    delete curr;
-    list.size--;
-    return true;
+
+    arr.employees[arr.size] = emp;
+    arr.size++;
+    cout << "Employee added successfully!" << endl;
 }
 
-bool modifyEmployee(employeeList& list, int id) {
-    Employee* emp = findEmployeeById(list, id);
-    if (!emp) return false;
-    cout << "New First Name: ";
-    cin >> emp->firstName;
-    cout << "New Last Name: ";
-    cin >> emp->lastName;
-    cout << "New Address: ";
-    cin.ignore();
-    getline(cin, emp->address);
-    cout << "New Salary: ";
-    cin >> emp->salary;
-    cout << "New Hire Date (YYYY-MM-DD): ";
-    cin >> emp->hireDate;
-    cout << "New Branch Code: ";
-    cin >> emp->branchCode;
-    return true;
+bool deleteEmployee(EmployeeArray& arr, const string& id) {
+    for (int i = 0; i < arr.size; i++) {
+        if (arr.employees[i].id == id) {
+            // Shift elements to remove the employee
+            for (int j = i; j < arr.size - 1; j++) {
+                arr.employees[j] = arr.employees[j + 1];
+            }
+            arr.size--;
+            cout << "Employee deleted successfully!" << endl;
+            return true;
+        }
+    }
+    cout << "Error: Employee not found!" << endl;
+    return false;
 }
 
-void displayEmployeesAlphabetically(const employeeList& list) {
-    if (!list.head) {
-        cout << "No employees.\n";
+bool modifyEmployee(EmployeeArray& arr, const string& id, const Employee& newData) {
+    for (int i = 0; i < arr.size; i++) {
+        if (arr.employees[i].id == id) {
+            arr.employees[i] = newData;
+            cout << "Employee modified successfully!" << endl;
+            return true;
+        }
+    }
+    cout << "Error: Employee not found!" << endl;
+    return false;
+}
+
+void displayEmployeesAlphabetical(const EmployeeArray& arr) {
+    if (arr.size == 0) {
+        cout << "No employees to display!" << endl;
         return;
     }
-    Employee* arr[1000];
-    Employee* temp = list.head;
-    int n = 0;
-    while (temp && n < 1000) {
-        arr[n++] = temp;
-        temp = temp->next;
+
+    // Create a temporary array for sorting
+    Employee* temp = new Employee[arr.size];
+    for (int i = 0; i < arr.size; i++) {
+        temp[i] = arr.employees[i];
     }
-    for (int i = 0; i < n-1; i++) {
-        for (int j = 0; j < n-i-1; j++) {
-            if (arr[j]->lastName > arr[j+1]->lastName) {
-                Employee* t = arr[j];
-                arr[j] = arr[j+1];
-                arr[j+1] = t;
+
+    // Bubble sort by last name
+    for (int i = 0; i < arr.size - 1; i++) {
+        for (int j = 0; j < arr.size - i - 1; j++) {
+            if (temp[j].lastName > temp[j + 1].lastName) {
+                Employee tempEmp = temp[j];
+                temp[j] = temp[j + 1];
+                temp[j + 1] = tempEmp;
             }
         }
     }
-    cout << "\n=== Alphabetical by Last Name ===\n";
-    for (int i = 0; i < n; i++) {
-        cout << arr[i]->id << " | " << arr[i]->firstName << " " << arr[i]->lastName
-             << " | " << arr[i]->salary << " | " << arr[i]->branchCode << " | " << arr[i]->hireDate << "\n";
+
+    cout << "Employees sorted by last name:" << endl;
+    for (int i = 0; i < arr.size; i++) {
+        cout << "ID: " << temp[i].id
+            << ", Name: " << temp[i].name
+            << " " << temp[i].lastName
+            << ", Branch: " << temp[i].branchCode << endl;
     }
+
+    delete[] temp;
 }
 
-void displayEmployeesByBranch(const employeeList& list) {
-    if (!list.head) return;
-    Employee* arr[1000];
-    Employee* temp = list.head;
-    int n = 0;
-    while (temp && n < 1000) {
-        arr[n++] = temp;
-        temp = temp->next;
+void displayEmployeesByBranch(const EmployeeArray& arr) {
+    if (arr.size == 0) {
+        cout << "No employees to display!" << endl;
+        return;
     }
-    for (int i = 0; i < n-1; i++) {
-        for (int j = 0; j < n-i-1; j++) {
-            if (arr[j]->branchCode > arr[j+1]->branchCode) {
-                Employee* t = arr[j];
-                arr[j] = arr[j+1];
-                arr[j+1] = t;
+
+    cout << "Employees grouped by branch:" << endl;
+
+    // Simple grouping by branch
+    for (int i = 0; i < arr.size; i++) {
+        string currentBranch = arr.employees[i].branchCode;
+        bool branchPrinted = false;
+
+        // Check if we already printed this branch
+        for (int j = 0; j < i; j++) {
+            if (arr.employees[j].branchCode == currentBranch) {
+                branchPrinted = true;
+                break;
+            }
+        }
+
+        if (!branchPrinted) {
+            cout << "\nBranch " << currentBranch << ":" << endl;
+            for (int k = 0; k < arr.size; k++) {
+                if (arr.employees[k].branchCode == currentBranch) {
+                    cout << "  - " << arr.employees[k].name
+                        << " " << arr.employees[k].lastName
+                        << " (ID: " << arr.employees[k].id << ")" << endl;
+                }
             }
         }
     }
-    string cur = "";
-    for (int i = 0; i < n; i++) {
-        if (arr[i]->branchCode != cur) {
-            cur = arr[i]->branchCode;
-            cout << "\n--- Branch " << cur << " ---\n";
+}
+
+void displayEarliestLatestEmployees(const EmployeeArray& arr) {
+    if (arr.size == 0) {
+        cout << "No employees to display!" << endl;
+        return;
+    }
+
+    int earliestIndex = 0;
+    int latestIndex = 0;
+
+    for (int i = 1; i < arr.size; i++) {
+        if (arr.employees[i].hireDate < arr.employees[earliestIndex].hireDate) {
+            earliestIndex = i;
         }
-        cout << "  " << arr[i]->id << " | " << arr[i]->firstName << " " << arr[i]->lastName << "\n";
+        if (arr.employees[i].hireDate > arr.employees[latestIndex].hireDate) {
+            latestIndex = i;
+        }
     }
+
+    cout << "Earliest recruited employee:" << endl;
+    cout << "ID: " << arr.employees[earliestIndex].id
+        << ", Name: " << arr.employees[earliestIndex].name
+        << " " << arr.employees[earliestIndex].lastName
+        << ", Hire Date: " << arr.employees[earliestIndex].hireDate << endl;
+
+    cout << "Most recently recruited employee:" << endl;
+    cout << "ID: " << arr.employees[latestIndex].id
+        << ", Name: " << arr.employees[latestIndex].name
+        << " " << arr.employees[latestIndex].lastName
+        << ", Hire Date: " << arr.employees[latestIndex].hireDate << endl;
 }
 
-void displayEarliestAndLatest(const employeeList& list) {
-    if (!list.head) return;
-    Employee* earliest = list.head;
-    Employee* latest = list.head;
-    Employee* temp = list.head->next;
-    while (temp) {
-        if (temp->hireDate < earliest->hireDate) earliest = temp;
-        if (temp->hireDate > latest->hireDate) latest = temp;
-        temp = temp->next;
+void saveEmployeesToFile(const EmployeeArray& arr, const string& filename) {
+    ofstream file(filename);
+    if (!file.is_open()) {
+        cout << "Error: Cannot open file for writing!" << endl;
+        return;
     }
-    cout << "Earliest: " << earliest->firstName << " " << earliest->lastName << " (" << earliest->hireDate << ")\n";
-    cout << "Latest: " << latest->firstName << " " << latest->lastName << " (" << latest->hireDate << ")\n";
-}
 
-Employee* findEmployeeById(const employeeList& list, int id) {
-    Employee* temp = list.head;
-    while (temp) {
-        if (temp->id == id) return temp;
-        temp = temp->next;
+    for (int i = 0; i < arr.size; i++) {
+        file << arr.employees[i].id << ","
+            << arr.employees[i].name << ","
+            << arr.employees[i].lastName << ","
+            << arr.employees[i].address << ","
+            << arr.employees[i].salary << ","
+            << arr.employees[i].hireDate << ","
+            << arr.employees[i].branchCode << "\n";
     }
-    return nullptr;
+
+    file.close();
+    cout << "Employees saved to file successfully!" << endl;
 }
 
-void freeEmployeeList(employeeList& list) {
-    Employee* cur = list.head;
-    while (cur) {
-        Employee* next = cur->next;
-        delete cur;
-        cur = next;
+EmployeeArray loadEmployeesFromFile(const string& filename) {
+    EmployeeArray arr = createEmployeeArray();
+    ifstream file(filename);
+
+    if (!file.is_open()) {
+        cout << "No existing employee file found. Starting fresh." << endl;
+        return arr;
     }
-    list.head = nullptr;
-    list.size = 0;
-}
 
-void initEmployeeSystem() {
-    employees = newEmployeeList();
-    loadEmployeesFromFile();
-}
-
-void saveEmployeesToFile() {
-    ofstream f("../data/employees.json");
-    f << "[\n";
-    Employee* p = employees.head;
-    bool first = true;
-    while (p) {
-        if (!first) f << ",\n";
-        first = false;
-        f << "  {\"id\":" << p->id
-          << ",\"firstName\":\"" << p->firstName
-          << "\",\"lastName\":\"" << p->lastName
-          << "\",\"address\":\"" << p->address
-          << "\",\"salary\":" << p->salary
-          << ",\"hireDate\":\"" << p->hireDate
-          << "\",\"branchCode\":\"" << p->branchCode << "\"}";
-        p = p->next;
-    }
-    f << "\n]\n";
-    f.close();
-}
-
-void loadEmployeesFromFile() {
-    ifstream f("../data/employees.json");
-    if (!f.is_open()) return;
-    stringstream buffer;
-    buffer << f.rdbuf();
-    string s = buffer.str();
-    const char* c = s.c_str();
-    while (*c && *c != '[') c++;
-    if (*c == '[') c++;
-    while (*c) {
-        if (*c != '{') { c++; continue; }
+    string line;
+    while (getline(file, line)) {
         Employee emp;
-        string key, val;
-        while (*c && *c != '}') {
-            if (*c != '"') { c++; continue; }
-            c++;
-            key = "";
-            while (*c && *c != '"') key += *c++;
-            c += 3;
-            if (*c == '"') {
-                c++;
-                val = "";
-                while (*c && *c != '"') val += *c++;
-                c++;
-            } else {
-                val = "";
-                while (*c && (*c == '.' || isdigit(*c) || *c == '-')) val += *c++;
-            }
-            if (key == "id") emp.id = stoi(val);
-            else if (key == "firstName") emp.firstName = val;
-            else if (key == "lastName") emp.lastName = val;
-            else if (key == "address") emp.address = val;
-            else if (key == "salary") emp.salary = stod(val);
-            else if (key == "hireDate") emp.hireDate = val;
-            else if (key == "branchCode") emp.branchCode = val;
-            c++;
-        }
-        addEmployee(employees, emp);
-        c++;
+        size_t pos = 0;
+        size_t lastPos = 0;
+
+        // Parse CSV line
+        pos = line.find(',', lastPos);
+        emp.id = line.substr(lastPos, pos - lastPos);
+
+        lastPos = pos + 1;
+        pos = line.find(',', lastPos);
+        emp.name = line.substr(lastPos, pos - lastPos);
+
+        lastPos = pos + 1;
+        pos = line.find(',', lastPos);
+        emp.lastName = line.substr(lastPos, pos - lastPos);
+
+        lastPos = pos + 1;
+        pos = line.find(',', lastPos);
+        emp.address = line.substr(lastPos, pos - lastPos);
+
+        lastPos = pos + 1;
+        pos = line.find(',', lastPos);
+        emp.salary = stod(line.substr(lastPos, pos - lastPos));
+
+        lastPos = pos + 1;
+        pos = line.find(',', lastPos);
+        emp.hireDate = line.substr(lastPos, pos - lastPos);
+
+        lastPos = pos + 1;
+        emp.branchCode = line.substr(lastPos);
+
+        addEmployee(arr, emp);
     }
-    f.close();
+
+    file.close();
+    cout << "Employees loaded from file successfully!" << endl;
+    return arr;
 }
