@@ -11,6 +11,58 @@ EmployeeArray createEmployeeArray() {
     arr.employees = new Employee[arr.capacity];
     return arr;
 }
+int employeeInterface(const employee &emp)
+{
+    clearScreen();
+    printLine("Employee Portal - " + emp.name + " " + emp.lastName);
+
+    // MAIN EMPLOYEE OPTIONS
+    string options[13] = {
+        "Add Employee",
+        "Delete Employee",
+        "Modify Employee",
+        "Display Employees (Alphabetical)",
+        "Display Employees by Branch",
+        "Earliest & Latest Recruited",
+        "Add Customer Account",
+        "Display Accounts",
+        "Change Account Status",
+        "Archive Closed Accounts",
+        "Display Loans for Customer",
+        "Change Loan Status",
+        "Logout"
+    };
+
+    printOptions(options, 13);
+
+    int choice;
+    cin >> choice;
+
+    switch (choice)
+    {
+        // === EMPLOYEE MANAGEMENT ===
+        case 1: addEmployeeMenu(); break;
+        case 2: deleteEmployeeMenu(); break;
+        case 3: modifyEmployeeMenu(); break;
+        case 4: displayEmployeesAlphabetical(); break;
+        case 5: displayEmployeesByBranch(); break;
+        case 6: showEarliestLatest(); break;
+
+        // === ACCOUNT MANAGEMENT ===
+        case 7: addAccountMenu(); break;
+        case 8: displayAccountsMenu(); break;
+        case 9: changeAccountStatusMenu(); break;
+        case 10: archiveClosedAccountsMenu(); break;
+
+        // === LOAN MANAGEMENT ===
+        case 11: displayCustomerLoansMenu(); break;
+        case 12: changeLoanStatusMenu(); break;
+
+        
+    }
+
+    return 0;
+}
 
 void resizeEmployeeArray(EmployeeArray& arr) {
     int newCapacity = arr.capacity * 2;
