@@ -10,5 +10,3 @@ customer lowestBalance(const customerList& l);
 int activeLoans(const customerList& l, string start, string end);
 int numberOfEmployees(const employeeList& l);
 int numEmployeesByBranch(const employeeList& l, string branch);
-
-a
