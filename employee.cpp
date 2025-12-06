@@ -1,16 +1,46 @@
-#include "../headers/employee.h"
 #include "../headers/employeearr.h"
+#include "../headers/interface.h"
 #include <iostream>
+#include <string>
 #include <fstream>
 #include <algorithm>
 
-EmployeeArray createEmployeeArray() {
-    EmployeeArray arr;
-    arr.capacity = 10;
-    arr.size = 0;
-    arr.employees = new Employee[arr.capacity];
-    return arr;
+void EmployeeInterface(EmployeeArray *arr)
+{
+    string Menu[6] = {
+        "Employee Management",
+        "Customer Accounts Management",
+        "Loan Management",
+        "Transaction Management",
+        "Statistics",
+        "Log Out"
+    };
+
+    int choice;
+    printOptions(Menu, 6);
+    cin >> choice;
+
+    if (choice < 1 || choice > 6)
+    {
+        printLine("Invalid Option");
+        EmployeeInterface(arr);
+        return;
+    }
+
+    switch (choice)
+    {
+        case 1: EmployeeManagement(arr); break;
+        case 2: CustomerAccountManagement(); break;
+        case 3: LoanManagement(); break;
+        case 4: TransactionManagement(); break;
+        case 5: StatisticsMenu(arr); break;
+        case 6: logout(); break;
+    }
+
+    // return to the menu when finished
+    EmployeeInterface(arr);
 }
+
 
 void resizeEmployeeArray(EmployeeArray& arr) {
     int newCapacity = arr.capacity * 2;
@@ -238,3 +268,257 @@ EmployeeArray loadEmployeesFromFile(const string& filename) {
     cout << "Employees loaded from file successfully!" << endl;
     return arr;
 }
+void DeleteCompletedLoans(CompLoan &Clist, loanList &list){
+        LoanNode *curr = list.head;
+
+    while (curr != nullptr) {
+
+        if (curr->data.status == "completed") {
+
+            CLoanNode *cNode = new CLoanNode;
+            cNode->data = curr->data;
+            cNode->next = Clist.head;
+            Clist.head = cNode;
+
+            LoanNode *toDelete = curr;
+
+            // removing head
+            if (curr->prev == nullptr) {
+                list.head = curr->next;
+                if (list.head != nullptr)
+                    list.head->prev = nullptr;
+            }
+            // middle element
+            else {
+                curr->prev->next = curr->next;
+                curr->next->prev = curr->prev;
+            }
+
+            curr = curr->next;
+            delete toDelete;
+        }
+
+        else {
+            curr = curr->next;
+        }
+    }
+
+    cout << "All completed loans moved to completed_loans list.\n";
+}
+void enqueueRequest(LoanRequestQueue &q, const Loan &req)
+{
+    LoanRequestNode *node = new LoanRequestNode{req, nullptr};
+
+    if (q.tail == nullptr) {
+        q.front = q.tail = node;
+        return;
+    }
+
+    q.tail->next = node;
+    q.tail = node;
+}
+
+bool dequeueRequest(LoanRequestQueue &q, Loan &out)
+{
+    if (q.front == nullptr)
+        return false;
+
+    LoanRequestNode *temp = q.front;
+    out = temp->data;
+
+    q.front = q.front->next;
+
+    if (q.front == nullptr)
+        q.tail = nullptr;
+
+    delete temp;
+    return true;
+}
+void processNextRequest(LoanRequestQueue &q, loanList &customerLoans)
+{
+    Loan req;
+
+    if (!dequeueRequest(q, req)) {
+        cout << "No pending requests.\n";
+        return;
+    }
+
+    cout << "Processing request for Loan ID: " << req.id << endl;
+    cout << "Accept loan? (1 = yes, 0 = no): ";
+
+    int choice;
+    cin >> choice;
+
+    if (choice == 1)
+    {
+        // Create new node
+        LoanNode *node = new LoanNode;
+        node->data = req;
+        node->next = nullptr;
+
+        // Insert into singly linked list
+        if (customerLoans.head == nullptr)
+        {
+            customerLoans.head = node;
+        }
+        else
+        {
+            LoanNode *curr = customerLoans.head;
+            while (curr->next != nullptr)
+                curr = curr->next;
+
+            curr->next = node;
+        }
+
+        customerLoans.size++;
+
+        cout << "Loan request ACCEPTED.\n";
+    }
+    else
+    {
+        cout << "Loan request DECLINED and permanently removed.\n";
+    }
+}
+
+void finalizeDay(tranStack &st, TransactionHistory &history)
+{
+    while (st.last != nullptr)
+    {
+        tran temp = st.last->data;
+
+        HistoryNode *node = new HistoryNode;
+        node->data = temp;
+        node->next = history.head;
+        history.head = node;
+
+        popTran(st);
+    }
+
+    cout << "\nDay finalized successfully.\n";
+    cout << "All daily transactions copied to permanent history.\n";
+}
+
+
+
+
+
+void displayHistory(const TransactionHistory &hist)
+{
+    printLine("TRANSACTION HISTORY");
+
+    HistoryNode *curr = hist.head;
+
+    if (curr == nullptr) {
+        cout << "No history available.\n";
+        return;
+    }
+
+    while (curr != nullptr) {
+        cout << "ID: " << curr->data.id
+             << " | Type: " << curr->data.type
+             << " | Amount: " << curr->data.amount
+             << " DT | Date: " << curr->data.date
+             << " | Account: " << curr->data.acc_num
+             << endl;
+        curr = curr->next;
+    }
+}
+
+
+
+
+void displayAccounts(const customerList &list)
+{
+    printLine("ACTIVE ACCOUNTS");
+
+    customerNode *curr = list.head;
+    while (curr != nullptr) {
+        cout << "Account " << curr->data.acc_num
+             << " | Holder: " << curr->data.name
+             << " | Status: " << curr->data.status
+             << " | Balance: " << curr->data.balance << " DT\n";
+
+        curr = curr->next;
+    }
+}
+
+void changeStatus(customerList &list, string accNum, const string &newStatus)
+{
+    customerNode *curr = list.head;
+
+    while (curr != nullptr) {
+        if (curr->data.acc_num == accNum) {
+            curr->data.status = newStatus;
+            cout << "Status changed successfully.\n";
+            return;
+        }
+        curr = curr->next;
+    }
+
+    cout << "Account not found.\n";
+}
+
+void archiveClosedAccounts(customerList &list, ArchiveArray &archive)
+{
+    customerNode *curr = list.head;
+    customerNode *prev = nullptr;
+
+    while (curr != nullptr)
+    {
+        if (curr->data.status == "closed")
+        {
+            // =============================
+            // 1. Store in ARCHIVE ARRAY
+            // =============================
+            if (archive.size == archive.capacity)
+            {
+                cout << "Archive full, cannot store more accounts!\n";
+                return;
+            }
+
+            archive.arr[archive.size] = curr->data;
+            archive.size++;
+
+            // =============================
+            // 2. Remove from LINKED LIST
+            // =============================
+            customerNode *toDelete = curr;
+
+            if (prev == nullptr)
+            {
+                // deleting head
+                list.head = curr->next;
+                curr = list.head;
+            }
+            else
+            {
+                prev->next = curr->next;
+                curr = curr->next;
+            }
+
+            delete toDelete;
+            list.size--;
+        }
+        else
+        {
+            prev = curr;
+            curr = curr->next;
+        }
+    }
+
+    cout << "All closed accounts archived.\n";
+}
+
+void changeLoanStatus(loanList &list,string LoanID,const string &newStatus)
+{
+    LoanNode *curr=list.head;
+    while(curr!=nullptr){
+        if(curr->data.id==LoanID){
+            curr->data.status=newStatus;
+            cout << "Loan status updated: " << newStatus << "\n";
+        }
+    }
+    curr=curr->next;
+    cout<<"Loan not found.\n";
+}
+
