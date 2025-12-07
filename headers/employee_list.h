@@ -3,68 +3,48 @@
 
 #include <string>
 #include "employee.h"
+using namespace std;
+EmployeeArray createEmployeeArray();
+EmployeeArray loadEmployeesFromFile(const string& filename);
+void saveEmployeesToFile(const EmployeeArray& arr, const string& filename);
+void resizeEmployeeArray(EmployeeArray& arr);
 
-/*
- * employee_list.h
- *
- * Simple singly-linked list container for Employee objects.
- * This header defines `employeeList` and related node type and
- * declares list operations used by the rest of the project.
- *
- * Design notes:
- * - Keeps the original pointer-based methodology (no std::vector/std::list).
- * - Avoids `using namespace std;` to prevent leaking names into includers.
- * - Function signatures use `const std::string&` for employee id parameters
- *   to match the `Employee::id` type.
- */
 
-/* Node for the employee singly-linked list */
-struct employeeNode {
-    Employee data;
-    employeeNode* next;
-};
+/* ===============================
+   EMPLOYEE CRUD OPERATIONS
+   =============================== */
 
-/* The employee list container */
-struct employeeList {
-    employeeNode* head;
-    int size;
-};
+int addEmployee(EmployeeArray& arr, const Employee& emp);
+bool deleteEmployee(EmployeeArray& arr, const string& id);
+bool modifyEmployee(EmployeeArray& arr, const string& id, const Employee& newData);
 
-/* Create a new empty employee list */
-employeeList newEmployeeList();
 
-/* Add an employee to the end of the list */
-int addEmployee(employeeList& list, const Employee& emp);
+/* ===============================
+   EMPLOYEE DISPLAY FUNCTIONS
+   =============================== */
 
-/* Delete the first employee matching the given id.
- * Returns true if deletion happened, false otherwise.
- */
-bool deleteEmployee(employeeList& list, const std::string& id);
+void displayEmployeesAlphabetical(const EmployeeArray& arr);
+void displayEmployeesByBranch(const EmployeeArray& arr);
+void displayEarliestLatestEmployees(const EmployeeArray& arr);
 
-/* Modify the first employee matching `id` by replacing its data.
- * Returns true if modification happened, false otherwise.
- */
-bool modifyEmployee(employeeList& list, const std::string& id, const Employee& newData);
 
-/* Display employees in alphabetical order (by lastName).
- * Implementations may allocate temporary arrays as needed but should
- * not change the list's storage methodology.
- */
-void displayEmployeesAlphabetically(const employeeList& list);
+/* ===============================
+   EMPLOYEE MENU & INTERFACE
+   =============================== */
 
-/* Display employees grouped by branch (simple grouped iteration). */
-void displayEmployeesByBranch(const employeeList& list);
+int employeeInterface(const Employee& emp);
 
-/* Display the earliest and latest hired employees. */
-void displayEarliestAndLatest(const employeeList& list);
+// menus (all required by employee.cpp)
+int addEmployeeMenu();
+void deleteEmployeeMenu();
+void modifyEmployeeMenu();
 
-/* Find an employee by id. Returns pointer to the Employee in the list
- * or nullptr if not found. The returned pointer refers to memory owned
- * by the list; do not delete it.
- */
-Employee* findEmployeeById(const employeeList& list, const std::string& id);
+void addAccountMenu();
+void displayAccountsMenu();
+void changeAccountStatusMenu();
+void archiveClosedAccountsMenu();
 
-/* Free all nodes in the list and reset it to an empty state. */
-void freeEmployeeList(employeeList& list);
+void displayCustomerLoansMenu();
+void changeLoanStatusMenu();
 
-#endif // EMPLOYEE_LIST_H
+#endif

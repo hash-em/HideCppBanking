@@ -24,9 +24,6 @@ struct customerList {
 customerList newCustomerList();
 loanList newLoanList();
 tranStack newTranStack();
-CompLoan newCompLoanList();
-TransactionHistory newHistoryList();
-
 // Basic in-memory mutators (signatures match implementations)
 void addCustomer(customerList &customers, customer object);
 void addLoan(loanList &loans, Loan object);
@@ -55,13 +52,5 @@ tranStack parseTransStackFromFile();
 void updateData(customer cust);
 void dumpCustomers(customerList customers);
 
-// Completed loans / history helpers
-CompLoan parseCompLoans();
-CompLoan parseCompletedLoans(const char *&c);
-void addCompletedLoan(CompLoan &clist, Loan loan);
-
-TransactionHistory parseTransactionHistory(const char *&c);
-TransactionHistory parsetransactionhistory();
-void addHistoryTransaction(TransactionHistory &hist, const tran &t);
 
 #endif // CUSTOMER_LISTS_H
