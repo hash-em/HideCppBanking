@@ -1,12 +1,18 @@
+#ifndef CUSTOMER_LISTS_H
+#define CUSTOMER_LISTS_H
+
 #include "customer.h"
-#include "../headers/helpers.h"
-#include "fstream"
+#include "helpers.h"
 #include <string>
-#include "ctime"
-using namespace std;
+#include <fstream>
+#include <ctime>
+
+// Note: This header intentionally avoids `using namespace std;`
+// and keeps the project's original pointer-based data structures.
+
 struct customerNode {
     customer data;
-    customerNode * next;
+    customerNode *next;
 };
 
 struct customerList {
@@ -14,25 +20,48 @@ struct customerList {
     int size;
 };
 
+// Factory / constructors
+customerList newCustomerList();
+loanList newLoanList();
+tranStack newTranStack();
+CompLoan newCompLoanList();
+TransactionHistory newHistoryList();
 
+// Basic in-memory mutators (signatures match implementations)
+void addCustomer(customerList &customers, customer object);
+void addLoan(loanList &loans, Loan object);
+void addTran(tranStack &stack, tran object);
 
-int submitNewLoan(customer & cust);//DONE//HASH
-void displayCustomer(customer cust);//DONE//HASH
-int withdraw(customer &cust);//DONE//HASH
-int deposit(customer &cust);//DONE//HASH
-void viewDay(customer cust);//DONE//HASH
+// Customer-facing operations
+int userInterface(customer &cust);
+int submitNewLoan(customer &cust);
+void displayCustomer(customer cust);
+int withdraw(customer &cust);
+int deposit(customer &cust);
+void viewDay(customer cust);
+void viewLoans(customer cust);
+int undoLast(customer &cust);
+
+// Transaction helpers
 void popTran(tranStack &tr);
 void addUndone(tran tr);
-int undoLast(customer &cust); //DONE//HASH
-void viewLoans(customer cust);//DONE//HASH
-customerList newCustomerList();//DONE//HASH
-void addTran(tranStack &stack, tran object);//DONE//HASH
-void addLoan(loanList &loans, Loan object);//DONE//HASH
-void addCustomer(customerList &customers, customer object);//DONE//HASH
-tranStack newTranStack();//DONE//HASH
-loanList newLoanList();//DONE//HASH
-int userInterface(customer &cust);//DONE//HASH
-customerList newCustomerList();//DONE//HASH
-customerList parseCustomers();//DONE//HASH
-void updateData(customer cust);//DONE//HASH
-void dumpCustomers(customerList customers);//DONE//HASH
+
+// Parsing / file IO
+customerList parseCustomers();
+loanList parseLoansFile();
+tranStack parseTransStackFromFile();
+
+// Data persistence
+void updateData(customer cust);
+void dumpCustomers(customerList customers);
+
+// Completed loans / history helpers
+CompLoan parseCompLoans();
+CompLoan parseCompletedLoans(const char *&c);
+void addCompletedLoan(CompLoan &clist, Loan loan);
+
+TransactionHistory parseTransactionHistory(const char *&c);
+TransactionHistory parsetransactionhistory();
+void addHistoryTransaction(TransactionHistory &hist, const tran &t);
+
+#endif // CUSTOMER_LISTS_H

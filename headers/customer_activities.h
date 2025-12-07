@@ -1,25 +1,30 @@
-#include "iostream"
-using namespace std;
+#ifndef CUSTOMER_ACTIVITIES_H
+#define CUSTOMER_ACTIVITIES_H
+
+#include <string>
+
+// Forward declare customer to avoid circular includes between customer.h and this header
+struct customer;
 
 struct tran{
-    string id;
-    string acc_num;
-    string type;
+    std::string id;
+    std::string acc_num;
+    std::string type;
     float amount;
-    string date;
+    std::string date;
     bool undone;
 };
 
 struct Loan{
-    string id;
-    string acc_num;
-    string type;
+    std::string id;
+    std::string acc_num;
+    std::string type;
     float amount;
     float remain_balance;
     float interest;
-    string start;
-    string end;
-    string status;
+    std::string start;
+    std::string end;
+    std::string status;
 };
 
 
@@ -43,3 +48,39 @@ struct loanList {
     LoanNode * head ;
     int size;
 };
+
+/* Completed loan node used to store/archive completed loans (singly-linked) */
+struct CLoanNode {
+    Loan data;
+    CLoanNode * next;
+};
+
+/* Permanent transaction history node (singly-linked) */
+struct HistoryNode {
+    tran data;
+    HistoryNode * next;
+};
+
+/* Container for completed loans (singly-linked list) */
+struct CompLoan {
+    CLoanNode * head;
+    int size;
+};
+
+/* Container for transaction history (singly-linked list) */
+struct TransactionHistory {
+    HistoryNode * head;
+    int size;
+};
+
+/* Simple ArchiveArray used to store archived customers while preserving
+ * the original methodology of raw pointers and capacity/size fields.
+ * The array element type is `customer` (forward-declared above).
+ */
+struct ArchiveArray {
+    customer *arr;
+    int size;
+    int capacity;
+};
+
+#endif // CUSTOMER_ACTIVITIES_H

@@ -249,6 +249,30 @@ src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/final.dir/build.make CMakeFiles/final.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
+src/statistics.o: src/statistics.cpp.o
+.PHONY : src/statistics.o
+
+# target to build an object file
+src/statistics.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/final.dir/build.make CMakeFiles/final.dir/src/statistics.cpp.o
+.PHONY : src/statistics.cpp.o
+
+src/statistics.i: src/statistics.cpp.i
+.PHONY : src/statistics.i
+
+# target to preprocess a source file
+src/statistics.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/final.dir/build.make CMakeFiles/final.dir/src/statistics.cpp.i
+.PHONY : src/statistics.cpp.i
+
+src/statistics.s: src/statistics.cpp.s
+.PHONY : src/statistics.s
+
+# target to generate assembly for a file
+src/statistics.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/final.dir/build.make CMakeFiles/final.dir/src/statistics.cpp.s
+.PHONY : src/statistics.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -273,6 +297,9 @@ help:
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/statistics.o"
+	@echo "... src/statistics.i"
+	@echo "... src/statistics.s"
 .PHONY : help
 
 

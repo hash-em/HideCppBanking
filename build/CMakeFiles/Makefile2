@@ -85,12 +85,12 @@ clean: CMakeFiles/final.dir/clean
 CMakeFiles/final.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/final.dir/build.make CMakeFiles/final.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/final.dir/build.make CMakeFiles/final.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/hashem/Documents/DS/proj_1/HideCppBanking/build/CMakeFiles --progress-num=1,2,3,4,5,6 "Built target final"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/hashem/Documents/DS/proj_1/HideCppBanking/build/CMakeFiles --progress-num=1,2,3,4,5,6,7 "Built target final"
 .PHONY : CMakeFiles/final.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/final.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/hashem/Documents/DS/proj_1/HideCppBanking/build/CMakeFiles 6
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/hashem/Documents/DS/proj_1/HideCppBanking/build/CMakeFiles 7
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/final.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/hashem/Documents/DS/proj_1/HideCppBanking/build/CMakeFiles 0
 .PHONY : CMakeFiles/final.dir/rule
@@ -102,7 +102,7 @@ final: CMakeFiles/final.dir/rule
 # codegen rule for target.
 CMakeFiles/final.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/final.dir/build.make CMakeFiles/final.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/hashem/Documents/DS/proj_1/HideCppBanking/build/CMakeFiles --progress-num=1,2,3,4,5,6 "Finished codegen for target final"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/hashem/Documents/DS/proj_1/HideCppBanking/build/CMakeFiles --progress-num=1,2,3,4,5,6,7 "Finished codegen for target final"
 .PHONY : CMakeFiles/final.dir/codegen
 
 # clean rule for target.

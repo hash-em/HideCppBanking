@@ -1,16 +1,18 @@
 #include "../headers/interface.h"
 #include "../headers/helpers.h"
-using namespace std;
+#include "../headers/employeearr.h"
+#include <iostream>
+
 
 
 int ini()
 {
     clearScreen();
     printLine("Welcome to Cpp Banking");
-    string options[3] = {"Customer Login","Employee login","Exit"};
+    std::string options[3] = {"Customer Login","Employee login","Exit"};
     printOptions(options, 3);
     int choice,next_choice;
-    cin >> choice;
+    std::cin >> choice;
     switch (choice) {
         case 1:{
             customer cust = customer_login();
@@ -25,24 +27,48 @@ int ini()
             return 0;
         };
         case 2 : {
-            cerr << "Not implemented";
-            return 1;
+            while (true) {
+                clearScreen();
+                printLine("Employee Login");
+                std::string empid;
+                std::cout << "Employee ID: ";
+                std::cin >> empid;
+                EmployeeArray arr = loadEmployeesFromFile("../data/employees.json");
+                bool found = false;
+                Employee emp;
+                for (int i = 0; i < arr.size; ++i) {
+                    if (arr.employees[i].id == empid) {
+                        emp = arr.employees[i];
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found) {
+                    printLine("Invalid Employee ID");
+                    continue;
+                }
+                int next_choice = employeeInterface(emp);
+                if (next_choice == 67) logout();
+                break;
+            }
+            return 0;
         }
-        case 3 : return 0;
+        case 3 : clearScreen();return 0;
     }
     return choice;
 }
 customer customer_login()
 {
-    string acc_num,branch_code;
+    std::string acc_num,branch_code;
     printLine("Input Acc_num");
-    cin >> acc_num;
+    std::cin >> acc_num;
     printLine("Input branch_code");
-    cin >> branch_code;
+    std::cin >> branch_code;
     clearScreen();
     bool found = false;
     customerList custs = parseCustomers();
     customerNode *curr = custs.head;
+    customer empty = {"0","0","0","0","0","0","0",0.0,newLoanList(),newTranStack()};
     while(curr && !found)
     {
         if (curr->data.acc_num == acc_num) {
@@ -53,13 +79,13 @@ customer customer_login()
             }
             else {
                 printLine("Invalid Branch Code");
-                return customer{"0","0","0","0","0","0","0",0.0,newLoanList(),newTranStack()};
+                return empty;
             }
         }
         curr = curr->next;
     }
     printLine("Invalid Acc_num");
-    return customer{"0","0","0","0","0","0","0",0.0,newLoanList(),newTranStack()};
+    return empty;
 }
 int logout()
 {

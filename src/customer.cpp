@@ -3,6 +3,9 @@
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <iterator>
+
+using namespace std;
 
 int userInterface(customer &cust)
 {
