@@ -1,4 +1,4 @@
-#include "employee.list.h"
+#include "employee_list.h"
 #include "customer_lists.h"
 #include <string>
 
@@ -12,4 +12,4 @@ customer lowestBalance(const customerList& l);
 int activeLoans(const customerList& l, string start, string end);
 int numberOfEmployees(const EmployeeArray& l);
 int numEmployeesByBranch(const EmployeeArray& l, string branch);
-void statstics();
+void stats();

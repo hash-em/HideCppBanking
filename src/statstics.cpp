@@ -1,7 +1,7 @@
 #include <iostream>
-#include "customer_lists.h"
-#include "employee_list.h"
-#include "statstics.h"
+#include "../headers/customer_lists.h"
+#include "../headers/employee_list.h"
+#include "../headers/statstics.h"
 using namespace std;
 
 int numberOfLoans(const customerList& l) {
@@ -163,7 +163,7 @@ int numberOfEmployees(const EmployeeArray& arr) {
 	return arr.size;
 }
 
-int numEmployeesByBranch(const EmployeeArray& arr, int branch) {
+int numEmployeesByBranch(const EmployeeArray& arr, string branch) {
 	int s = 0;
 	int i = 0;
 	while (i < arr.size) {
@@ -175,22 +175,18 @@ int numEmployeesByBranch(const EmployeeArray& arr, int branch) {
 	return s;
 }
 
-void statstics()
-{
-	string options[9] = { "Number of Loans","Number of Loans by Type","Number of Loans by Status",
-		"Customer with Highest Number of Loans","Customer with Highest Balance",
-		"Customer with Lowest Balance","Number of Active Loans in Date Range","Number of Employees",
-		"Number of Employees by Branch" };
+void stats() {
+	string options[9] = { "Number of Loans","Number of Loans by Type","Number of Loans by Status","Customer with Highest Number of Loans","Customer with Highest Balance",		"Customer with Lowest Balance","Number of Active Loans in Date Range","Number of Employees",		"Number of Employees by Branch" };
 	printOptions(options, 9);
 	customerList custs = parseCustomers();
 	EmployeeArray emps = loadEmployeesFromFile("../data/employees.json");
 	int choice;
 	cin >> choice;
-	switch (choice)
-	{
-	case 1:
+	switch (choice) {
+	case 1: {
 		cout << "Total number of loans: " << numberOfLoans(custs) << endl;
 		break;
+	}
 	case 2:
 	{
 		string type;
@@ -248,3 +244,6 @@ void statstics()
 		break;
 	}
 	}
+}	
+
+	
