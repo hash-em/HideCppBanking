@@ -49,30 +49,6 @@ struct loanList {
     int size;
 };
 
-/* Completed loan node used to store/archive completed loans (singly-linked) */
-struct CLoanNode {
-    Loan data;
-    CLoanNode * next;
-};
-
-/* Permanent transaction history node (singly-linked) */
-struct HistoryNode {
-    tran data;
-    HistoryNode * next;
-};
-
-/* Container for completed loans (singly-linked list) */
-struct CompLoan {
-    CLoanNode * head;
-    int size;
-};
-
-/* Container for transaction history (singly-linked list) */
-struct TransactionHistory {
-    HistoryNode * head;
-    int size;
-};
-
 /* Simple ArchiveArray used to store archived customers while preserving
  * the original methodology of raw pointers and capacity/size fields.
  * The array element type is `customer` (forward-declared above).

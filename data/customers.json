@@ -7,7 +7,7 @@
 	  "branch_code":"x",
 	  "name":"mohamed",
 	  "opening_date":"31/07/2006",
-	  "status":"open",
+	  "status":"CLOSED",
 	  "balance":650.000000,
 	  "loans":[
 		 {
@@ -19,7 +19,7 @@
 			  "remain_balance":200.000000,
 			  "start":"16/11/2025",
 			  "end":"26/12/2025",
-			  "status":"paid"
+			  "status":"ended"
 			 },
 		 {
 			  "id":"0x22",
@@ -68,6 +68,20 @@
 			  "end":"26/12/2075",
 			  "status":"paid"
 			 }
+		 ],
+	  "transactions":[
+		  ]
+  	},
+	 {
+	  "acc_num":"0002",
+	  "acc_type":"DEPOSIT",
+	  "iban":"123456789000",
+	  "branch_code":"Y",
+	  "name":"HBIB",
+	  "opening_date":"07/12/2025",
+	  "status":"active",
+	  "balance":1000.000000,
+	  "loans":[
 		 ],
 	  "transactions":[
 		  ]
