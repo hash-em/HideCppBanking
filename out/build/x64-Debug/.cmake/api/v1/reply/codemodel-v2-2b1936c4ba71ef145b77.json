@@ -39,7 +39,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "final::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-final-Debug-a7d68cfacbcb5fd2bb68.json",
+					"jsonFile" : "target-final-Debug-f83023cf163d4b52fb0e.json",
 					"name" : "final",
 					"projectIndex" : 0
 				}
@@ -49,8 +49,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "C:/Users/ybliy/OneDrive/Bureau/aaaaaaaaaaaaa/out/build/x64-Debug",
-		"source" : "C:/Users/ybliy/OneDrive/Bureau/aaaaaaaaaaaaa"
+		"build" : "C:/Users/ybliy/OneDrive/Bureau/proj/out/build/x64-Debug",
+		"source" : "C:/Users/ybliy/OneDrive/Bureau/proj"
 	},
 	"version" : 
 	{
