@@ -1,11 +1,5 @@
 # ninja log v6
-23	433	7868364121041165	CMakeFiles/final.dir/src/main.cpp.obj	eb24f1e280b75239
-12	438	7868364120941497	CMakeFiles/final.dir/src/helpers.cpp.obj	9352f13e54851ca4
-17	445	7868364120981362	CMakeFiles/final.dir/src/interface.cpp.obj	a4e750386511983a
-5	494	7868364120861759	CMakeFiles/final.dir/src/customer.cpp.obj	368f739f360fa481
-9	518	7868364120911598	CMakeFiles/final.dir/src/employee.cpp.obj	4f13fb214465467b
-518	779	7868364125994644	C:/Users/ybliy/OneDrive/Bureau/aaaaaaaaaaaaa/build/final.exe	8be2e0f5d950e4d
-39	1159	7868390148782324	CMakeFiles/final.dir/src/helpers.cpp.obj	9352f13e54851ca4
-53	1173	7868390148921846	CMakeFiles/final.dir/src/interface.cpp.obj	a4e750386511983a
-65	1189	7868390149051421	CMakeFiles/final.dir/src/main.cpp.obj	eb24f1e280b75239
-13	1249	7868390148523173	CMakeFiles/final.dir/src/customer.cpp.obj	368f739f360fa481
+13	1299	7868434244379927	CMakeFiles/final.dir/src/helpers.cpp.obj	907392ab3c54e550
+32	1367	7868434244569046	CMakeFiles/final.dir/src/main.cpp.obj	5e60fd92808cd586
+6	1448	7868434244299847	CMakeFiles/final.dir/src/customer.cpp.obj	76937c55f44dec0e
+24	1493	7868434244488667	CMakeFiles/final.dir/src/interface.cpp.obj	12339a576e5feda4

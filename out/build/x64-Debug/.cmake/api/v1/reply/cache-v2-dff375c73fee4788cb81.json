@@ -39,7 +39,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "c:/Users/ybliy/OneDrive/Bureau/aaaaaaaaaaaaa/out/build/x64-Debug"
+			"value" : "c:/Users/ybliy/OneDrive/Bureau/proj/out/build/x64-Debug"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -483,7 +483,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/Users/ybliy/OneDrive/Bureau/aaaaaaaaaaaaa/out/build/x64-Debug/CMakeFiles/pkgRedirects"
+			"value" : "C:/Users/ybliy/OneDrive/Bureau/proj/out/build/x64-Debug/CMakeFiles/pkgRedirects"
 		},
 		{
 			"name" : "CMAKE_GENERATOR",
@@ -543,7 +543,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "C:/Users/ybliy/OneDrive/Bureau/aaaaaaaaaaaaa"
+			"value" : "C:/Users/ybliy/OneDrive/Bureau/proj"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",
@@ -555,7 +555,7 @@
 				}
 			],
 			"type" : "PATH",
-			"value" : "C:/Users/ybliy/OneDrive/Bureau/aaaaaaaaaaaaa/out/install/x64-Debug"
+			"value" : "C:/Users/ybliy/OneDrive/Bureau/proj/out/install/x64-Debug"
 		},
 		{
 			"name" : "CMAKE_LINKER",
@@ -1091,7 +1091,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/Users/ybliy/OneDrive/Bureau/aaaaaaaaaaaaa/out/build/x64-Debug"
+			"value" : "C:/Users/ybliy/OneDrive/Bureau/proj/out/build/x64-Debug"
 		},
 		{
 			"name" : "HideCppBanking_IS_TOP_LEVEL",
@@ -1115,7 +1115,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/Users/ybliy/OneDrive/Bureau/aaaaaaaaaaaaa"
+			"value" : "C:/Users/ybliy/OneDrive/Bureau/proj"
 		}
 	],
 	"kind" : "cache",
