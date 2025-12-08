@@ -1,7 +1,5 @@
 #include <iostream>
-#include "customer_lists.h"
-#include "employee_list.h"
-#include "statstics.h"
+#include "../headers/statstics.h"
 using namespace std;
 
 int numberOfLoans(const customerList& l) {

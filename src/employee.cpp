@@ -1,12 +1,10 @@
 #include "../headers/employee.h"
-#include "../headers/employee_list.h"
 #include "../headers/helpers.h"
 #include "../headers/customer_lists.h"
 #include "../headers/statstics.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include <algorithm>
 #include <string>
 
 using namespace std;
