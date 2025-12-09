@@ -6,7 +6,7 @@ int numberOfLoans(const customerList& l) {
 	int s = 0;
 	customerNode* current = l.head;
 	while (current) {
-		LoanNode* current1 = loanList.head;
+		LoanNode*  current1= current->data.loans.head;
 		while (current1) {
 			s = s + 1;
 			current1 = current1->next;
@@ -20,7 +20,7 @@ int loansType(const customerList& l, string type) {
 	int s = 0;
 	customerNode* current = l.head;
 	while (current) {
-		LoanNode* current1 = loanList.head;
+		LoanNode* current1 = current->data.loans.head;
 		while (current1) {
 			if (current1->data.type == type) {
 				s = s + 1;
@@ -36,7 +36,7 @@ int loansStatus(const customerList& l, string status) {
 	int s = 0;
 	customerNode* current = l.head;
 	while (current) {
-		LoanNode* current1 = loanList.head;
+		LoanNode* current1 = current->data.loans.head;
 		while (current1) {
 			if (current1->data.status == status) {
 				s = s + 1;
@@ -92,13 +92,14 @@ bool compareDates(string s1, string s2) {
 		}
 		return date1 < date2;
 	}
+	return 0;
 }
 
 int activeLoans(const customerList& l, string start, string end) {
 	int s = 0;
 	customerNode* current = l.head;
 	while (current) {
-		LoanNode* current1 = loanList.head;
+		LoanNode* current1 = current->data.loans.head;
 		while (current1) {
 			if (current1->data.status == "active") {
 				if (compareDates(start, current1->data.start) && compareDates(current1->data.end, end)) {
@@ -118,7 +119,7 @@ customer highestNbLoans(const customerList& l) {
 	int maxLoans = 0;
 	while (current) {
 		int s = 0;
-		LoanNode* current1 = loanList.head;
+		LoanNode* current1 = current->data.loans.head;
 		while (current1) {
 			s = s + 1;
 			current1 = current1->next;
@@ -165,7 +166,7 @@ int numEmployeesByBranch(const EmployeeArray& arr, string branch) {
 	int s = 0;
 	int i = 0;
 	while (i < arr.size) {
-		if (arr.employees->branchCode[i] == branch) {
+		if (arr.employees[i].branchCode == branch) {
 			s = s + 1;
 		}
 		i = i + 1;
@@ -173,29 +174,25 @@ int numEmployeesByBranch(const EmployeeArray& arr, string branch) {
 	return s;
 }
 
-void statstics()
-{
-	string options[9] = { "Number of Loans","Number of Loans by Type","Number of Loans by Status",
-		"Customer with Highest Number of Loans","Customer with Highest Balance",
-		"Customer with Lowest Balance","Number of Active Loans in Date Range","Number of Employees",
-		"Number of Employees by Branch" };
+int stats() {
+	string options[10] = { "Number of Loans","Number of Loans by Type","Number of Loans by Status","Customer with Highest Number of Loans","Customer with Highest Balance",		"Customer with Lowest Balance","Number of Active Loans in Date Range","Number of Employees",		"Number of Employees by Branch" , "Previous menu" };
 	printOptions(options, 9);
 	customerList custs = parseCustomers();
 	EmployeeArray emps = loadEmployeesFromFile("../data/employees.json");
-	int choice;
+	int choice,res;
 	cin >> choice;
-	switch (choice)
-	{
-	case 1:
+	switch (choice) {
+	case 1: {
 		cout << "Total number of loans: " << numberOfLoans(custs) << endl;
-		break;
+		res = 0;
+	}
 	case 2:
 	{
 		string type;
 		cout << "Enter loan type: ";
 		cin >> type;
 		cout << "Number of loans of type " << type << ": " << loansType(custs, type) << endl;
-		break;
+		res = 0;
 	}
 	case 3:
 	{
@@ -203,25 +200,25 @@ void statstics()
 		cout << "Enter loan status: ";
 		cin >> status;
 		cout << "Number of loans with status " << status << ": " << loansStatus(custs, status) << endl;
-		break;
+		res = 0;
 	}
 	case 4:
 	{
 		customer cust = highestNbLoans(custs);
 		cout << "Customer with highest number of loans: " << cust.name << " (Account#: " << cust.acc_num << ")" << endl;
-		break;
+		res = 0;
 	}
 	case 5:
 	{
 		customer cust = highestBalance(custs);
 		cout << "Customer with highest balance: " << cust.name << " (Account#: " << cust.acc_num << ", Balance: " << cust.balance << ")" << endl;
-		break;
+		res = 0;
 	}
 	case 6:
 	{
 		customer cust = lowestBalance(custs);
 		cout << "Customer with lowest balance: " << cust.name << " (Account#: " << cust.acc_num << ", Balance: " << cust.balance << ")" << endl;
-		break;
+		res = 0;
 	}
 	case 7:
 	{
@@ -231,11 +228,11 @@ void statstics()
 		cout << "Enter end date (DD/MM/YYYY): ";
 		cin >> end;
 		cout << "Number of active loans between " << start << " and " << end << ": " << activeLoans(custs, start, end) << endl;
-		break;
+		res = 0;
 	}
 	case 8: {
 		cout << "Total number of employees: " << numberOfEmployees(emps) << endl;
-		break;
+		res = 0;
 	}
 	case 9:
 	{
@@ -243,6 +240,15 @@ void statstics()
 		cout << "Enter branch code: ";
 		cin >> branch;
 		cout << "Number of employees in branch " << branch << ": " << numEmployeesByBranch(emps, branch) << endl;
-		break;
+		res = 0;
+	}
+	case 10 :
+	{
+	    return 67;
 	}
 	}
+	while (res != 67) {
+	return stats();
+}
+	return 0;
+}

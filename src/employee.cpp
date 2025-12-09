@@ -232,7 +232,7 @@ int employeeInterface(const Employee& emp)
 
 
 		// === STATISTICS ===
-    case 13: statistics() ;
+    case 13: stats();break ;
     case 14: return 67;
     }
     return employeeInterface(emp);
