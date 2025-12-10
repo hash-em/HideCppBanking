@@ -176,7 +176,7 @@ int numEmployeesByBranch(const EmployeeArray& arr, string branch) {
 
 int stats() {
 	string options[10] = { "Number of Loans","Number of Loans by Type","Number of Loans by Status","Customer with Highest Number of Loans","Customer with Highest Balance",		"Customer with Lowest Balance","Number of Active Loans in Date Range","Number of Employees",		"Number of Employees by Branch" , "Previous menu" };
-	printOptions(options, 9);
+	printOptions(options, 10);
 	customerList custs = parseCustomers();
 	EmployeeArray emps = loadEmployeesFromFile("../data/employees.json");
 	int choice,res;
@@ -185,6 +185,7 @@ int stats() {
 	case 1: {
 		cout << "Total number of loans: " << numberOfLoans(custs) << endl;
 		res = 0;
+		break;
 	}
 	case 2:
 	{
@@ -193,6 +194,7 @@ int stats() {
 		cin >> type;
 		cout << "Number of loans of type " << type << ": " << loansType(custs, type) << endl;
 		res = 0;
+		break;
 	}
 	case 3:
 	{
@@ -201,24 +203,28 @@ int stats() {
 		cin >> status;
 		cout << "Number of loans with status " << status << ": " << loansStatus(custs, status) << endl;
 		res = 0;
+		break;
 	}
 	case 4:
 	{
 		customer cust = highestNbLoans(custs);
 		cout << "Customer with highest number of loans: " << cust.name << " (Account#: " << cust.acc_num << ")" << endl;
 		res = 0;
+		break;
 	}
 	case 5:
 	{
 		customer cust = highestBalance(custs);
 		cout << "Customer with highest balance: " << cust.name << " (Account#: " << cust.acc_num << ", Balance: " << cust.balance << ")" << endl;
 		res = 0;
+		break;
 	}
 	case 6:
 	{
 		customer cust = lowestBalance(custs);
 		cout << "Customer with lowest balance: " << cust.name << " (Account#: " << cust.acc_num << ", Balance: " << cust.balance << ")" << endl;
 		res = 0;
+		break;
 	}
 	case 7:
 	{
@@ -229,10 +235,12 @@ int stats() {
 		cin >> end;
 		cout << "Number of active loans between " << start << " and " << end << ": " << activeLoans(custs, start, end) << endl;
 		res = 0;
+		break;
 	}
 	case 8: {
 		cout << "Total number of employees: " << numberOfEmployees(emps) << endl;
 		res = 0;
+		break;
 	}
 	case 9:
 	{
@@ -241,6 +249,7 @@ int stats() {
 		cin >> branch;
 		cout << "Number of employees in branch " << branch << ": " << numEmployeesByBranch(emps, branch) << endl;
 		res = 0;
+		break;
 	}
 	case 10 :
 	{

@@ -4,6 +4,4 @@ int main(void){
 
     ini();
 
-    //TODO
-
 }

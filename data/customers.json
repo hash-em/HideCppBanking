@@ -8,7 +8,7 @@
 	  "name":"mohamed",
 	  "opening_date":"31/07/2006",
 	  "status":"CLOSED",
-	  "balance":650.000000,
+	  "balance":21650.000000,
 	  "loans":[
 		 {
 			  "id":"0x12",
@@ -31,6 +31,17 @@
 			  "start":"16/11/2035",
 			  "end":"26/12/2075",
 			  "status":"paid"
+			 },
+		 {
+			  "id":"1x496",
+			  "acc_num":"102",
+			  "type":"car",
+			  "amount":1000.000000,
+			  "interest":1.000000,
+			  "remain_balance":-350.000000,
+			  "start":"10/12/2025",
+			  "end":".",
+			  "status":"active"
 			 }
 		 ],
 	  "transactions":[

@@ -44,6 +44,7 @@ void displayAccountsMenu();
 void changeAccountStatusMenu();
 void archiveClosedAccountsMenu();
 
+void pendingLoansMenu();
 void displayCustomerLoansMenu();
 void changeLoanStatusMenu();
 

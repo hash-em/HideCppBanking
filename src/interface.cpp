@@ -99,6 +99,5 @@ int createAccount()
 {
     clearScreen();
 
-    //TODO
     return 1;
 }

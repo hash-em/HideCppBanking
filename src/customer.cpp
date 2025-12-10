@@ -526,6 +526,28 @@ customerList parseCustomers()
     return parse(c);
 }
 
+loanList parseLoansFile()
+{
+    loanList loans = newLoanList();
+    string loans_path = "../data/loans.json";
+
+    ifstream file(loans_path, ios::binary);
+    if (!file.is_open()) return loans;
+
+    string buffer((istreambuf_iterator<char>(file)), istreambuf_iterator<char>());
+    const char *c = buffer.c_str();
+    
+    // Find the "loans" array in the JSON
+    while (*c && *c != '[') c++;
+    
+    if (*c == '[') {
+        c++; // skip '['
+        loans = parseLoans(c);
+    }
+    
+    return loans;
+}
+
 //////////////////////////////// FILE DUMPING /////////////////////////////////////////
 void updateData(customer cust)
 {
