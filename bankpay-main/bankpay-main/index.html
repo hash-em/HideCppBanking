@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>ELKHAZNA BANK - Banking Management System</title>
+
+    <!-- Fonts & Icons -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@700;800&family=Cinzel:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" href="logo.png" type="image/png" />
+  </head>
+  <body>
+    <!-- Hero Section -->
+    <section class="hero-section" id="heroSection">
+      <div class="hero-overlay">
+        <nav class="hero-nav">
+          <div class="nav-logo">
+            <img src="logo.png" alt="ELKHAZNA BANK Logo" class="logo" />
+            <div class="logo-text">
+              <h1>ELKHAZNA</h1>
+              <p>BANKING MANAGEMENT SYSTEM</p>
+            </div>
+          </div>
+          <div class="nav-info">
+            <p><i class="fas fa-calendar-alt"></i> Academic Year: 2025/2026</p>
+            <p>
+              <i class="fas fa-graduation-cap"></i> Data Structures Project - PI
+              1
+            </p>
+          </div>
+        </nav>
+
+        <div class="hero-content">
+          <div class="hero-text">
+            <h2 class="hero-title">
+              Welcome to <span class="highlight">ELKHAZNA BANK</span>
+            </h2>
+            <p class="hero-subtitle">
+              Secure • Reliable • Professional Banking Solutions
+            </p>
+            <div class="hero-features">
+              <div class="feature">
+                <i class="fas fa-shield-alt"></i>
+                <span>Bank-Grade Security</span>
+              </div>
+              <div class="feature">
+                <i class="fas fa-bolt"></i>
+                <span>Real-time Processing</span>
+              </div>
+              <div class="feature">
+                <i class="fas fa-chart-pie"></i>
+                <span>Advanced Analytics</span>
+              </div>
+            </div>
+            <button class="scroll-btn" onclick="scrollToLogin()">
+              <i class="fas fa-chevron-down"></i> ACCESS SYSTEM
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Login Section -->
+    <section class="login-section" id="loginSection">
+      <div class="container">
+        <div class="section-header">
+          <h2><i class="fas fa-user-shield"></i> System Access Portal</h2>
+          <p class="section-subtitle">
+            Select your role and enter your credentials
+          </p>
+        </div>
+
+        <div class="login-container">
+          <!-- Customer Login -->
+          <div class="login-half customer-side">
+            <div class="login-card">
+              <div class="login-header">
+                <div class="login-icon">
+                  <i class="fas fa-user-circle"></i>
+                </div>
+                <h3>Customer Portal</h3>
+                <p class="login-description">Personal Banking Interface</p>
+              </div>
+
+              <div class="login-body">
+                <form class="login-form" id="customerLoginForm">
+                  <div class="form-group">
+                    <label><i class="fas fa-user"></i> Username</label>
+                    <input
+                      type="text"
+                      id="customerUsername"
+                      placeholder="Enter username"
+                      required
+                    />
+                  </div>
+
+                  <div class="form-group">
+                    <label><i class="fas fa-lock"></i> PIN Code</label>
+                    <input
+                      type="password"
+                      id="customerPin"
+                      placeholder="4-digit PIN"
+                      maxlength="4"
+                      required
+                    />
+                  </div>
+
+                  <button type="button" class="btn-login" id="customerLoginBtn">
+                    <i class="fas fa-sign-in-alt"></i> LOGIN AS CUSTOMER
+                  </button>
+                </form>
+
+                <div class="login-demo">
+                  <h4><i class="fas fa-key"></i> Demo Access</h4>
+                  <div class="demo-accounts">
+                    <div
+                      class="demo-account"
+                      onclick="fillCustomerDemo('pf', '1111')"
+                    >
+                      <strong>Paul Fadayo</strong>
+                      <p>Username: <code>pf</code> • PIN: <code>1111</code></p>
+                      <small>Account: ACC001 • Balance: 25,000.75 TND</small>
+                    </div>
+                    <div
+                      class="demo-account"
+                      onclick="fillCustomerDemo('ga', '2222')"
+                    >
+                      <strong>Guest Account</strong>
+                      <p>Username: <code>ga</code> • PIN: <code>2222</code></p>
+                      <small>Account: ACC002 • Balance: 18,500.30 TND</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Divider -->
+          <div class="login-divider">
+            <div class="divider-line"></div>
+            <div class="divider-text">OR</div>
+            <div class="divider-line"></div>
+          </div>
+
+          <!-- Employee Login -->
+          <div class="login-half employee-side">
+            <div class="login-card">
+              <div class="login-header">
+                <div class="login-icon">
+                  <i class="fas fa-user-tie"></i>
+                </div>
+                <h3>Employee Portal</h3>
+                <p class="login-description">Bank Management Interface</p>
+              </div>
+
+              <div class="login-body">
+                <form class="login-form" id="employeeLoginForm">
+                  <div class="form-group">
+                    <label><i class="fas fa-id-card"></i> Employee ID</label>
+                    <input
+                      type="text"
+                      id="employeeUsername"
+                      placeholder="Enter employee ID"
+                      required
+                    />
+                  </div>
+
+                  <div class="form-group">
+                    <label><i class="fas fa-key"></i> Password</label>
+                    <input
+                      type="password"
+                      id="employeePassword"
+                      placeholder="Enter password"
+                      required
+                    />
+                  </div>
+
+                  <button type="button" class="btn-login" id="employeeLoginBtn">
+                    <i class="fas fa-sign-in-alt"></i> LOGIN AS EMPLOYEE
+                  </button>
+                </form>
+
+                <div class="login-demo">
+                  <h4><i class="fas fa-key"></i> Demo Access</h4>
+                  <div class="demo-accounts">
+                    <div
+                      class="demo-account"
+                      onclick="fillEmployeeDemo('admin', 'admin123')"
+                    >
+                      <strong>Head Office Admin</strong>
+                      <p>
+                        Username: <code>admin</code> • Password:
+                        <code>admin123</code>
+                      </p>
+                      <small>Branch: Head Office • Role: Administrator</small>
+                    </div>
+                    <div
+                      class="demo-account"
+                      onclick="fillEmployeeDemo('emp001', 'emp001')"
+                    >
+                      <strong>Branch Manager</strong>
+                      <p>
+                        Username: <code>emp001</code> • Password:
+                        <code>emp001</code>
+                      </p>
+                      <small>Branch: Tunis Central • Role: Manager</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project Features -->
+        <div class="features-section">
+          <h3><i class="fas fa-star"></i> System Features</h3>
+          <div class="features-grid">
+            <div class="feature-card">
+              <i class="fas fa-file-invoice-dollar"></i>
+              <h4>Loan Management</h4>
+              <p>
+                Doubly linked list for customer loans with complete tracking
+              </p>
+            </div>
+            <div class="feature-card">
+              <i class="fas fa-exchange-alt"></i>
+              <h4>Transaction Stack</h4>
+              <p>LIFO stack for daily transactions with undo functionality</p>
+            </div>
+            <div class="feature-card">
+              <i class="fas fa-users-cog"></i>
+              <h4>Employee Array</h4>
+              <p>Array-based employee management with sorting & grouping</p>
+            </div>
+            <div class="feature-card">
+              <i class="fas fa-chart-bar"></i>
+              <h4>Real-time Statistics</h4>
+              <p>Comprehensive analytics and reporting system</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Customer Dashboard -->
+    <main class="app hidden" id="customerDashboard">
+      <!-- Navigation -->
+      <nav class="dashboard-nav">
+        <div class="nav-left">
+          <div class="nav-brand">
+            <img src="logo.png" alt="ELKHAZNA BANK" class="nav-logo" />
+            <span class="nav-title">ELKHAZNA BANK</span>
+          </div>
+          <div class="nav-user">
+            <i class="fas fa-user-circle"></i>
+            <span id="customerName">Welcome, Customer</span>
+          </div>
+        </div>
+        <div class="nav-right">
+          <div class="nav-time">
+            <i class="fas fa-clock"></i>
+            <span id="currentDateTime"></span>
+          </div>
+          <button class="nav-logout" id="customerLogoutBtn">
+            <i class="fas fa-sign-out-alt"></i> Logout
+          </button>
+        </div>
+      </nav>
+
+      <!-- Main Content -->
+      <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+          <div class="sidebar-header">
+            <div class="account-summary">
+              <h4><i class="fas fa-wallet"></i> ACCOUNT SUMMARY</h4>
+              <p class="account-number" id="custAccountNumber">ACC001</p>
+              <p class="account-type" id="custAccountType">Savings Account</p>
+            </div>
+          </div>
+
+          <nav class="sidebar-nav">
+            <a
+              href="#overview"
+              class="sidebar-link active"
+              data-section="overview"
+            >
+              <i class="fas fa-tachometer-alt"></i> Dashboard
+            </a>
+            <a
+              href="#transactions"
+              class="sidebar-link"
+              data-section="transactions"
+            >
+              <i class="fas fa-exchange-alt"></i> Transactions
+            </a>
+            <a href="#loans" class="sidebar-link" data-section="loans">
+              <i class="fas fa-file-invoice-dollar"></i> My Loans
+            </a>
+            <a href="#new-loan" class="sidebar-link" data-section="new-loan">
+              <i class="fas fa-hand-holding-usd"></i> Request Loan
+            </a>
+            <a href="#transfer" class="sidebar-link" data-section="transfer">
+              <i class="fas fa-money-check-alt"></i> Transfer Funds
+            </a>
+            <a href="#account" class="sidebar-link" data-section="account">
+              <i class="fas fa-user-cog"></i> Account Settings
+            </a>
+          </nav>
+
+          <div class="sidebar-footer">
+            <div class="security-status">
+              <i class="fas fa-shield-alt"></i>
+              <span>Session Active</span>
+              <span class="timer" id="custTimer">05:00</span>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+          <!-- Overview Section -->
+          <section class="content-section active" id="overviewSection">
+            <div class="section-header">
+              <h2><i class="fas fa-tachometer-alt"></i> Dashboard Overview</h2>
+              <div class="header-actions">
+                <button class="btn-refresh">
+                  <i class="fas fa-sync-alt"></i> Refresh
+                </button>
+              </div>
+            </div>
+
+            <!-- Balance Card -->
+            <div class="balance-card">
+              <div class="balance-info">
+                <h3>Current Balance</h3>
+                <p class="balance-value" id="custBalance">0.00 TND</p>
+                <div class="balance-details">
+                  <span class="balance-status active">Active</span>
+                  <span class="balance-update">Updated just now</span>
+                </div>
+              </div>
+              <div class="balance-actions">
+                <button class="btn-action deposit">
+                  <i class="fas fa-plus-circle"></i> Deposit
+                </button>
+                <button class="btn-action withdraw">
+                  <i class="fas fa-minus-circle"></i> Withdraw
+                </button>
+              </div>
+            </div>
+
+            <!-- Quick Stats -->
+            <div class="stats-grid">
+              <div class="stat-card">
+                <div class="stat-icon income">
+                  <i class="fas fa-arrow-down"></i>
+                </div>
+                <div class="stat-info">
+                  <span class="stat-value" id="totalIncome">0.00 TND</span>
+                  <span class="stat-label">Total Income</span>
+                </div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-icon expense">
+                  <i class="fas fa-arrow-up"></i>
+                </div>
+                <div class="stat-info">
+                  <span class="stat-value" id="totalExpense">0.00 TND</span>
+                  <span class="stat-label">Total Expense</span>
+                </div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-icon interest">
+                  <i class="fas fa-percentage"></i>
+                </div>
+                <div class="stat-info">
+                  <span class="stat-value" id="totalInterest">0.00 TND</span>
+                  <span class="stat-label">Interest Earned</span>
+                </div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-icon loans">
+                  <i class="fas fa-file-invoice-dollar"></i>
+                </div>
+                <div class="stat-info">
+                  <span class="stat-value" id="activeLoans">0</span>
+                  <span class="stat-label">Active Loans</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Recent Transactions -->
+            <div class="recent-transactions">
+              <div class="section-header">
+                <h3><i class="fas fa-history"></i> Recent Transactions</h3>
+                <button class="btn-view-all">View All</button>
+              </div>
+              <div class="transactions-list" id="recentTransactions">
+                <!-- Transactions will be loaded here -->
+              </div>
+            </div>
+          </section>
+
+          <!-- Transactions Section -->
+          <section class="content-section" id="transactionsSection">
+            <div class="section-header">
+              <h2><i class="fas fa-exchange-alt"></i> Transactions</h2>
+              <div class="header-actions">
+                <button class="btn-undo" id="undoBtn">
+                  <i class="fas fa-undo"></i> Undo Last
+                </button>
+                <button class="btn-sort" id="sortBtn">
+                  <i class="fas fa-sort-amount-down"></i> Sort
+                </button>
+              </div>
+            </div>
+
+            <!-- Transaction Controls -->
+            <div class="transaction-controls">
+              <div class="control-card withdraw">
+                <h3><i class="fas fa-money-bill-wave"></i> Withdraw Cash</h3>
+                <div class="denominations">
+                  <button class="denom-btn" data-amount="10">10 TND</button>
+                  <button class="denom-btn" data-amount="20">20 TND</button>
+                  <button class="denom-btn" data-amount="50">50 TND</button>
+                </div>
+                <div class="amount-input">
+                  <input
+                    type="number"
+                    id="withdrawAmount"
+                    placeholder="Enter amount"
+                  />
+                  <button class="btn-execute" id="withdrawBtn">Withdraw</button>
+                </div>
+              </div>
+
+              <div class="control-card deposit">
+                <h3><i class="fas fa-piggy-bank"></i> Deposit Cash</h3>
+                <div class="amount-input">
+                  <input
+                    type="number"
+                    id="depositAmount"
+                    placeholder="Enter amount"
+                  />
+                  <button class="btn-execute" id="depositBtn">Deposit</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- All Transactions -->
+            <div class="all-transactions">
+              <h3><i class="fas fa-list"></i> Today's Transactions</h3>
+              <div class="transactions-table">
+                <div class="table-header">
+                  <span>Type</span>
+                  <span>Date</span>
+                  <span>Description</span>
+                  <span>Amount</span>
+                </div>
+                <div class="table-body" id="allTransactions">
+                  <!-- All transactions will be loaded here -->
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Loans Section -->
+          <section class="content-section" id="loansSection">
+            <div class="section-header">
+              <h2><i class="fas fa-file-invoice-dollar"></i> My Loans</h2>
+              <button class="btn-new-loan" onclick="showSection('new-loan')">
+                <i class="fas fa-plus"></i> New Loan
+              </button>
+            </div>
+
+            <div class="loans-container" id="loansContainer">
+              <!-- Loans will be loaded here -->
+            </div>
+          </section>
+
+          <!-- New Loan Section -->
+          <section class="content-section" id="newLoanSection">
+            <div class="section-header">
+              <h2><i class="fas fa-hand-holding-usd"></i> Request New Loan</h2>
+              <button class="btn-back" onclick="showSection('loans')">
+                <i class="fas fa-arrow-left"></i> Back to Loans
+              </button>
+            </div>
+
+            <div class="loan-request-form">
+              <div class="form-row">
+                <div class="form-group">
+                  <label><i class="fas fa-list"></i> Loan Type</label>
+                  <select id="loanType">
+                    <option value="car">Car Loan</option>
+                    <option value="home">Home Loan</option>
+                    <option value="student">Student Loan</option>
+                    <option value="business">Business Loan</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label><i class="fas fa-money-bill"></i> Amount (TND)</label>
+                  <input
+                    type="number"
+                    id="loanAmount"
+                    placeholder="Enter loan amount"
+                    min="1000"
+                  />
+                </div>
+              </div>
+
+              <div class="form-group full-width">
+                <label><i class="fas fa-calendar-alt"></i> Loan Duration</label>
+                <div class="duration-selector">
+                  <button type="button" class="duration-btn" data-years="1">
+                    1 Year
+                  </button>
+                  <button type="button" class="duration-btn" data-years="2">
+                    2 Years
+                  </button>
+                  <button type="button" class="duration-btn" data-years="5">
+                    5 Years
+                  </button>
+                  <button type="button" class="duration-btn" data-years="10">
+                    10 Years
+                  </button>
+                </div>
+              </div>
+
+              <div class="loan-terms">
+                <h4>
+                  <i class="fas fa-info-circle"></i> Loan Terms & Conditions
+                </h4>
+                <ul>
+                  <li>Minimum loan amount: 1,000 TND</li>
+                  <li>Interest rates vary by loan type (3.5% - 6.0%)</li>
+                  <li>Processing time: 24-48 hours</li>
+                  <li>Must have at least 10% of loan amount in deposits</li>
+                </ul>
+              </div>
+
+              <button class="btn-submit-loan" id="submitLoanBtn">
+                <i class="fas fa-paper-plane"></i> Submit Loan Request
+              </button>
+            </div>
+          </section>
+
+          <!-- Transfer Section -->
+          <section class="content-section" id="transferSection">
+            <div class="section-header">
+              <h2><i class="fas fa-money-check-alt"></i> Transfer Funds</h2>
+            </div>
+
+            <div class="transfer-form">
+              <div class="form-group">
+                <label
+                  ><i class="fas fa-user"></i> Transfer To (Username)</label
+                >
+                <input
+                  type="text"
+                  id="transferTo"
+                  placeholder="Enter recipient's username"
+                />
+              </div>
+
+              <div class="form-group">
+                <label><i class="fas fa-money-bill"></i> Amount (TND)</label>
+                <input
+                  type="number"
+                  id="transferAmount"
+                  placeholder="Enter transfer amount"
+                />
+              </div>
+
+              <div class="recipient-info" id="recipientInfo">
+                <!-- Recipient info will appear here -->
+              </div>
+
+              <button class="btn-transfer" id="transferBtn">
+                <i class="fas fa-paper-plane"></i> Transfer Now
+              </button>
+            </div>
+          </section>
+
+          <!-- Account Section -->
+          <section class="content-section" id="accountSection">
+            <div class="section-header">
+              <h2><i class="fas fa-user-cog"></i> Account Settings</h2>
+            </div>
+
+            <div class="account-settings">
+              <div class="setting-card">
+                <h3><i class="fas fa-user"></i> Personal Information</h3>
+                <div class="info-grid">
+                  <div class="info-item">
+                    <span class="info-label">Full Name</span>
+                    <span class="info-value" id="accountFullName">-</span>
+                  </div>
+                  <div class="info-item">
+                    <span class="info-label">Account Number</span>
+                    <span class="info-value" id="accountNumber">-</span>
+                  </div>
+                  <div class="info-item">
+                    <span class="info-label">IBAN</span>
+                    <span class="info-value" id="accountIBAN">-</span>
+                  </div>
+                  <div class="info-item">
+                    <span class="info-label">Account Type</span>
+                    <span class="info-value" id="accountType">-</span>
+                  </div>
+                  <div class="info-item">
+                    <span class="info-label">Branch Code</span>
+                    <span class="info-value" id="accountBranch">-</span>
+                  </div>
+                  <div class="info-item">
+                    <span class="info-label">Opening Date</span>
+                    <span class="info-value" id="accountOpenDate">-</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="setting-card danger">
+                <h3><i class="fas fa-exclamation-triangle"></i> Danger Zone</h3>
+                <div class="close-account-form">
+                  <div class="form-group">
+                    <label>Confirm Username</label>
+                    <input
+                      type="text"
+                      id="closeUsername"
+                      placeholder="Enter your username"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label>Confirm PIN</label>
+                    <input
+                      type="password"
+                      id="closePin"
+                      placeholder="Enter your PIN"
+                      maxlength="4"
+                    />
+                  </div>
+                  <button class="btn-close-account" id="closeAccountBtn">
+                    <i class="fas fa-trash"></i> Close Account
+                  </button>
+                </div>
+              </div>
+            </div>
+          </section>
+        </main>
+      </div>
+    </main>
+
+    <!-- Employee Dashboard -->
+    <main class="employee-dashboard hidden" id="employeeDashboard">
+      <!-- Employee Navigation -->
+      <nav class="emp-nav">
+        <div class="emp-nav-left">
+          <div class="emp-brand">
+            <img src="logo.png" alt="ELKHAZNA BANK" class="emp-logo" />
+            <div class="emp-brand-text">
+              <h2>ELKHAZNA BANK</h2>
+              <p>Employee Management System</p>
+            </div>
+          </div>
+          <div class="emp-user-info">
+            <div class="emp-avatar">
+              <i class="fas fa-user-tie"></i>
+            </div>
+            <div class="emp-details">
+              <h4 id="empName">Employee Name</h4>
+              <p id="empRole">Role • <span id="empBranch">Branch</span></p>
+            </div>
+          </div>
+        </div>
+        <div class="emp-nav-right">
+          <div class="emp-time">
+            <i class="fas fa-clock"></i>
+            <span id="empDateTime"></span>
+          </div>
+          <button class="emp-logout" id="employeeLogoutBtn">
+            <i class="fas fa-sign-out-alt"></i> Logout
+          </button>
+        </div>
+      </nav>
+
+      <!-- Employee Content -->
+      <div class="emp-container">
+        <!-- Employee Sidebar -->
+        <aside class="emp-sidebar">
+          <nav class="emp-sidebar-nav">
+            <a
+              href="#emp-dashboard"
+              class="emp-sidebar-link active"
+              data-section="emp-dashboard"
+            >
+              <i class="fas fa-tachometer-alt"></i> Dashboard
+            </a>
+            <a
+              href="#emp-employees"
+              class="emp-sidebar-link"
+              data-section="emp-employees"
+            >
+              <i class="fas fa-users"></i> Employees
+            </a>
+            <a
+              href="#emp-accounts"
+              class="emp-sidebar-link"
+              data-section="emp-accounts"
+            >
+              <i class="fas fa-wallet"></i> Accounts
+            </a>
+            <a
+              href="#emp-loans"
+              class="emp-sidebar-link"
+              data-section="emp-loans"
+            >
+              <i class="fas fa-file-invoice-dollar"></i> Loan Management
+            </a>
+            <a
+              href="#emp-statistics"
+              class="emp-sidebar-link"
+              data-section="emp-statistics"
+            >
+              <i class="fas fa-chart-bar"></i> Statistics
+            </a>
+            <a
+              href="#emp-daily"
+              class="emp-sidebar-link"
+              data-section="emp-daily"
+            >
+              <i class="fas fa-tasks"></i> Daily Operations
+            </a>
+          </nav>
+
+          <div class="emp-sidebar-footer">
+            <div class="session-info">
+              <i class="fas fa-shield-alt"></i>
+              <div>
+                <p>Secure Session</p>
+                <span class="emp-timer" id="empTimer">05:00</span>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Employee Main Content -->
+        <main class="emp-main-content">
+          <!-- Employee Dashboard Section -->
+          <section class="emp-content-section active" id="empDashboardSection">
+            <div class="emp-section-header">
+              <h2>
+                <i class="fas fa-tachometer-alt"></i> Management Dashboard
+              </h2>
+              <div class="emp-header-actions">
+                <button class="btn-finalize-day" id="finalizeDayBtn">
+                  <i class="fas fa-flag-checkered"></i> Finalize Day
+                </button>
+              </div>
+            </div>
+
+            <!-- Quick Stats -->
+            <div class="emp-stats-grid">
+              <div class="emp-stat-card">
+                <div class="emp-stat-icon customers">
+                  <i class="fas fa-users"></i>
+                </div>
+                <div class="emp-stat-info">
+                  <span class="emp-stat-value" id="totalCustomers">0</span>
+                  <span class="emp-stat-label">Total Customers</span>
+                </div>
+              </div>
+              <div class="emp-stat-card">
+                <div class="emp-stat-icon loans">
+                  <i class="fas fa-file-invoice-dollar"></i>
+                </div>
+                <div class="emp-stat-info">
+                  <span class="emp-stat-value" id="totalLoans">0</span>
+                  <span class="emp-stat-label">Total Loans</span>
+                </div>
+              </div>
+              <div class="emp-stat-card">
+                <div class="emp-stat-icon pending">
+                  <i class="fas fa-clock"></i>
+                </div>
+                <div class="emp-stat-info">
+                  <span class="emp-stat-value" id="pendingRequests">0</span>
+                  <span class="emp-stat-label">Pending Requests</span>
+                </div>
+              </div>
+              <div class="emp-stat-card">
+                <div class="emp-stat-icon employees">
+                  <i class="fas fa-user-tie"></i>
+                </div>
+                <div class="emp-stat-info">
+                  <span class="emp-stat-value" id="totalEmployees">0</span>
+                  <span class="emp-stat-label">Total Employees</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="emp-activity">
+              <h3><i class="fas fa-history"></i> Recent Activity</h3>
+              <div class="activity-list" id="empActivityList">
+                <!-- Activity will be loaded here -->
+              </div>
+            </div>
+          </section>
+
+          <!-- Employees Management Section -->
+          <section class="emp-content-section" id="empEmployeesSection">
+            <div class="emp-section-header">
+              <h2><i class="fas fa-users"></i> Employee Management</h2>
+              <div class="emp-header-actions">
+                <button class="btn-add-employee" id="addEmployeeBtn">
+                  <i class="fas fa-plus"></i> Add Employee
+                </button>
+                <button class="btn-sort-employees" id="sortEmployeesBtn">
+                  <i class="fas fa-sort-alpha-down"></i> Sort by Name
+                </button>
+              </div>
+            </div>
+
+            <div class="emp-table-container">
+              <table class="emp-table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Branch</th>
+                    <th>Hire Date</th>
+                    <th>Salary</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="employeesTable">
+                  <!-- Employees will be loaded here -->
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Branch Grouping -->
+            <div class="branch-grouping">
+              <h3><i class="fas fa-sitemap"></i> Employees by Branch</h3>
+              <div class="branch-cards" id="branchCards">
+                <!-- Branch cards will be loaded here -->
+              </div>
+            </div>
+          </section>
+
+          <!-- Accounts Management Section -->
+          <section class="emp-content-section" id="empAccountsSection">
+            <div class="emp-section-header">
+              <h2><i class="fas fa-wallet"></i> Account Management</h2>
+              <div class="emp-header-actions">
+                <button class="btn-add-account" id="addAccountBtn">
+                  <i class="fas fa-plus"></i> Add Account
+                </button>
+                <button class="btn-archive-accounts" id="archiveAccountsBtn">
+                  <i class="fas fa-archive"></i> Archive Closed
+                </button>
+              </div>
+            </div>
+
+            <div class="accounts-filter">
+              <div class="filter-group">
+                <label>Status:</label>
+                <select id="accountStatusFilter">
+                  <option value="all">All Accounts</option>
+                  <option value="active">Active</option>
+                  <option value="inactive">Inactive</option>
+                  <option value="closed">Closed</option>
+                </select>
+              </div>
+              <div class="filter-group">
+                <label>Branch:</label>
+                <select id="accountBranchFilter">
+                  <option value="all">All Branches</option>
+                  <option value="001">Tunis Central</option>
+                  <option value="002">Sousse</option>
+                  <option value="003">Sfax</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="emp-table-container">
+              <table class="emp-table">
+                <thead>
+                  <tr>
+                    <th>Account #</th>
+                    <th>Holder</th>
+                    <th>Branch</th>
+                    <th>Balance</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="accountsTable">
+                  <!-- Accounts will be loaded here -->
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <!-- Loan Management Section -->
+          <section class="emp-content-section" id="empLoansSection">
+            <div class="emp-section-header">
+              <h2>
+                <i class="fas fa-file-invoice-dollar"></i> Loan Management
+              </h2>
+              <div class="emp-header-actions">
+                <button class="btn-process-loans" id="processLoansBtn">
+                  <i class="fas fa-cog"></i> Process Queue
+                </button>
+              </div>
+            </div>
+
+            <!-- Loan Requests Queue -->
+            <div class="loan-queue">
+              <h3><i class="fas fa-stream"></i> Loan Request Queue (FIFO)</h3>
+              <div class="queue-container" id="loanQueue">
+                <!-- Loan requests will be loaded here -->
+              </div>
+            </div>
+
+            <!-- Completed Loans -->
+            <div class="completed-loans">
+              <h3>
+                <i class="fas fa-check-circle"></i> Completed Loans Archive
+              </h3>
+              <div class="completed-list" id="completedLoansList">
+                <!-- Completed loans will be loaded here -->
+              </div>
+            </div>
+          </section>
+
+          <!-- Statistics Section -->
+          <section class="emp-content-section" id="empStatisticsSection">
+            <div class="emp-section-header">
+              <h2><i class="fas fa-chart-bar"></i> Statistics & Reports</h2>
+              <div class="emp-header-actions">
+                <button class="btn-export" id="exportStatsBtn">
+                  <i class="fas fa-download"></i> Export Report
+                </button>
+              </div>
+            </div>
+
+            <div class="stats-container">
+              <div class="stats-row">
+                <div class="stats-card large">
+                  <h3>
+                    <i class="fas fa-file-invoice-dollar"></i> Loan Statistics
+                  </h3>
+                  <div class="stats-content">
+                    <div class="stat-item">
+                      <span>Total Loans:</span>
+                      <strong id="statsTotalLoans">0</strong>
+                    </div>
+                    <div class="stat-item">
+                      <span>By Type:</span>
+                      <div class="stat-details" id="statsLoansByType">
+                        <!-- Will be populated -->
+                      </div>
+                    </div>
+                    <div class="stat-item">
+                      <span>By Status:</span>
+                      <div class="stat-details" id="statsLoansByStatus">
+                        <!-- Will be populated -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="stats-card large">
+                  <h3><i class="fas fa-user-tie"></i> Employee Statistics</h3>
+                  <div class="stats-content">
+                    <div class="stat-item">
+                      <span>Total Employees:</span>
+                      <strong id="statsTotalEmployees">0</strong>
+                    </div>
+                    <div class="stat-item">
+                      <span>By Branch:</span>
+                      <div class="stat-details" id="statsEmployeesByBranch">
+                        <!-- Will be populated -->
+                      </div>
+                    </div>
+                    <div class="stat-item">
+                      <span>Earliest Hire:</span>
+                      <strong id="earliestEmployee">-</strong>
+                    </div>
+                    <div class="stat-item">
+                      <span>Latest Hire:</span>
+                      <strong id="latestEmployee">-</strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="stats-card full-width">
+                <h3><i class="fas fa-users"></i> Customer Statistics</h3>
+                <div class="customer-stats-grid">
+                  <div class="customer-stat">
+                    <h4>Highest Balance</h4>
+                    <p class="stat-value" id="highestBalance">-</p>
+                  </div>
+                  <div class="customer-stat">
+                    <h4>Lowest Balance</h4>
+                    <p class="stat-value" id="lowestBalance">-</p>
+                  </div>
+                  <div class="customer-stat">
+                    <h4>Most Loans</h4>
+                    <p class="stat-value" id="mostLoans">-</p>
+                  </div>
+                  <div class="customer-stat">
+                    <h4>Active Loans Range</h4>
+                    <div class="date-range">
+                      <input type="date" id="startDate" />
+                      <span>to</span>
+                      <input type="date" id="endDate" />
+                      <button class="btn-filter" id="filterLoansBtn">
+                        Filter
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Daily Operations Section -->
+          <section class="emp-content-section" id="empDailySection">
+            <div class="emp-section-header">
+              <h2><i class="fas fa-tasks"></i> Daily Operations</h2>
+              <div class="emp-header-actions">
+                <button class="btn-clear-logs" id="clearLogsBtn">
+                  <i class="fas fa-trash"></i> Clear Logs
+                </button>
+              </div>
+            </div>
+
+            <!-- Transaction Logs -->
+            <div class="transaction-logs">
+              <h3>
+                <i class="fas fa-clipboard-list"></i> Today's Transaction Logs
+              </h3>
+              <div class="logs-container" id="transactionLogs">
+                <!-- Transaction logs will be loaded here -->
+              </div>
+            </div>
+
+            <!-- System Actions -->
+            <div class="system-actions">
+              <h3><i class="fas fa-cogs"></i> System Actions</h3>
+              <div class="action-buttons">
+                <button class="btn-system backup">
+                  <i class="fas fa-save"></i> Backup Data
+                </button>
+                <button class="btn-system restore">
+                  <i class="fas fa-undo"></i> Restore Data
+                </button>
+                <button class="btn-system audit">
+                  <i class="fas fa-search"></i> Run Audit
+                </button>
+              </div>
+            </div>
+          </section>
+        </main>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-logo">
+            <h3>ELKHAZNA BANK</h3>
+            <p>Banking Management System</p>
+            <p class="footer-tagline">
+              Data Structures Project - University Level
+            </p>
+          </div>
+
+          <div class="footer-info">
+            <h4>Project Details</h4>
+            <p><i class="fas fa-university"></i> University of Tunis</p>
+            <p>
+              <i class="fas fa-user-graduate"></i> Higher Institute of Digital
+              Engineering
+            </p>
+            <p>
+              <i class="fas fa-chalkboard-teacher"></i> Professor: Dr. Rihab
+              BOUSLAMA
+            </p>
+            <p>
+              <i class="fas fa-layer-group"></i> Level: PI 1 • Group: 4 Students
+            </p>
+          </div>
+
+          <div class="footer-tech">
+            <h4>Technologies Used</h4>
+            <div class="tech-icons">
+              <span class="tech-icon"><i class="fab fa-html5"></i> HTML5</span>
+              <span class="tech-icon"
+                ><i class="fab fa-css3-alt"></i> CSS3</span
+              >
+              <span class="tech-icon"
+                ><i class="fab fa-js"></i> JavaScript</span
+              >
+              <span class="tech-icon"
+                ><i class="fas fa-code"></i> C++ Backend</span
+              >
+            </div>
+            <p class="copyright">
+              <i class="far fa-copyright"></i> 2025 ELKHAZNA BANK. All rights
+              reserved.
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
