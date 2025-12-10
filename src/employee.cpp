@@ -7,13 +7,21 @@
 #include <sstream>
 #include <string>
 
+using namespace std;
 
-
+// Forward declarations for display helpers used by the employee menu
 void displayEmployeesAlphabetical(const EmployeeArray& arr);
 void displayEmployeesByBranch(const EmployeeArray& arr);
 void displayEarliestLatestEmployees(const EmployeeArray& arr);
 
-
+/*
+ * Lightweight JSON parsing helpers for employee JSON files.
+ * These mirror the simple ad-hoc parsers used in customer.cpp so they
+ * stay consistent with the project's no-external-library constraint.
+ *
+ * All helpers operate on a `const char*&` cursor which is advanced
+ * as the value is consumed.
+ */
 
 static void emp_skipWhitespace(const char*& c) {
     while (*c == ' ' || *c == '\n' || *c == '\t' || *c == '\r') c++;
@@ -22,12 +30,12 @@ static void emp_skipWhitespace(const char*& c) {
 static std::string emp_parseKey(const char*& c) {
     std::string key;
     if (*c != '\"') return key;
-    c++; 
+    c++; // skip opening quote
     while (*c && *c != '"') {
         key += *c;
         c++;
     }
-    if (*c == '"') c++; 
+    if (*c == '"') c++; // skip closing quote
     return key;
 }
 
@@ -44,55 +52,12 @@ static std::string emp_parseStringValue(const char*& c) {
     }
     if (*c == '"') c++; // skip closing quote
     return value;
-#include "../headers/employee.h"
-#include "../headers/helpers.h"
-#include "../headers/customer_lists.h"
-#include "../headers/statstics.h"
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <string>
-
-
-void displayEmployeesAlphabetical(const EmployeeArray& arr);
-void displayEmployeesByBranch(const EmployeeArray& arr);
-void displayEarliestLatestEmployees(const EmployeeArray& arr);
-
-
-
-static void emp_skipWhitespace(const char*& c) {
-    while (*c == ' ' || *c == '\n' || *c == '\t' || *c == '\r') c++;
-}
-
-static std::string emp_parseKey(const char*& c) {
-    std::string key;
-    if (*c != '"') return key;
-    c++;
-    while (*c && *c != '"') {
-        key += *c;
-        c++;
-    }
-    if (*c == '"') c++;
-    return key;
-}
-
-static std::string emp_parseStringValue(const char*& c) {
-    std::string value;
-    emp_skipWhitespace(c);
-    if (*c != '"') return value;
-    c++;
-    while (*c && *c != '"') {
-        if (*c == '\\' && *(c + 1) == '"') { c++; value += '"'; c++; continue; }
-        value += *c;
-        c++;
-    }
-    if (*c == '"') c++;
-    return value;
 }
 
 static double emp_parseFloatValue(const char*& c) {
     emp_skipWhitespace(c);
     std::string num;
+    // allow optional minus, digits, decimal point, exponent (basic)
     while (*c && ((*c >= '0' && *c <= '9') || *c == '-' || *c == '+' || *c == '.' || *c == 'e' || *c == 'E')) {
         num += *c;
         c++;
@@ -106,8 +71,12 @@ static double emp_parseFloatValue(const char*& c) {
     }
 }
 
+/* Parse a single employee JSON object. Expects `c` to point at '{' or at whitespace before it.
+ * Advances `c` to the character after the closing '}'.
+ */
 static Employee emp_parseEmployeeObject(const char*& c) {
     Employee emp;
+    // defaults
     emp.id = "";
     emp.name = "";
     emp.lastName = "";
@@ -118,17 +87,18 @@ static Employee emp_parseEmployeeObject(const char*& c) {
 
     emp_skipWhitespace(c);
     if (*c != '{') {
+        // attempt to find opening brace
         while (*c && *c != '{') c++;
         if (*c != '{') return emp;
     }
-    c++;
+    c++; // skip '{'
 
     while (*c && *c != '}') {
         emp_skipWhitespace(c);
         if (*c == '"') {
             std::string key = emp_parseKey(c);
             emp_skipWhitespace(c);
-            if (*c == ':') c++;
+            if (*c == ':') c++; // skip colon
             emp_skipWhitespace(c);
 
             if (key == "id") {
@@ -153,10 +123,11 @@ static Employee emp_parseEmployeeObject(const char*& c) {
                 emp.branchCode = emp_parseStringValue(c);
             }
             else {
+                // unknown key: skip value (string or number or object/array)
                 emp_skipWhitespace(c);
-                if (*c == '"') { (void)emp_parseStringValue(c); }
+                if (*c == '\"') { (void)emp_parseStringValue(c); }
                 else if ((*c >= '0' && *c <= '9') || *c == '-') { (void)emp_parseFloatValue(c); }
-                else if (*c == '{') {
+                else if (*c == '{') { // skip object naively
                     int depth = 0;
                     while (*c) {
                         if (*c == '{') depth++;
@@ -167,7 +138,7 @@ static Employee emp_parseEmployeeObject(const char*& c) {
                         c++;
                     }
                 }
-                else if (*c == '[') {
+                else if (*c == '[') { // skip array naively
                     int depth = 0;
                     while (*c) {
                         if (*c == '[') depth++;
@@ -179,6 +150,7 @@ static Employee emp_parseEmployeeObject(const char*& c) {
                     }
                 }
                 else {
+                    // skip until comma or closing brace
                     while (*c && *c != ',' && *c != '}') c++;
                 }
             }
@@ -191,7 +163,7 @@ static Employee emp_parseEmployeeObject(const char*& c) {
         if (*c == ',') c++;
     }
 
-    if (*c == '}') c++;
+    if (*c == '}') c++; // skip closing brace
     return emp;
 }
 
@@ -206,6 +178,7 @@ int employeeInterface(const Employee& emp)
 {
     printLine("Employee Portal - " + emp.name + " " + emp.lastName);
 
+    // MAIN EMPLOYEE OPTIONS
     string options[15] = {
         "Add Employee",
         "Delete Employee",
@@ -232,11 +205,13 @@ int employeeInterface(const Employee& emp)
     if (choice < 1 || choice > 15)
     {
         printLine("Invalid choice");
-        return employeeInterface(emp);
+        printLine("Enter your choice (1-15): ");
+        cin >> choice;
     }
     int res;
     switch (choice)
     {
+        // === EMPLOYEE MANAGEMENT ===
     case 1:
         do {
             res = addEmployeeMenu();
@@ -246,36 +221,68 @@ int employeeInterface(const Employee& emp)
     case 4: displayEmployeesAlphabetical(arr); break;
     case 5: displayEmployeesByBranch(arr); break;
     case 6: displayEarliestLatestEmployees(arr); break;
+
+        // === ACCOUNT MANAGEMENT ===
     case 7: addAccountMenu(); break;
     case 8: displayAccountsMenu(); break;
     case 9: changeAccountStatusMenu(); break;
     case 10: archiveClosedAccountsMenu(); break;
+
+        // === LOAN MANAGEMENT ===
     case 11: displayCustomerLoansMenu(); break;
     case 12: pendingLoansMenu(); break;
     case 13: changeLoanStatusMenu(); break;
+
+
+		// === STATISTICS ===
     case 14: stats();break ;
     case 15: return 67;
     }
     return employeeInterface(emp);
 }
 
+
 int addEmployeeMenu() {
     clearScreen();
     printLine("Add New Employee");
     Employee emp;
-    std::cout << "ID: ";
-    std::cin >> emp.id;
-    std::cout << "First name: ";
-    std::cin >> emp.name;
-    std::cout << "Last name: ";
-    std::cin >> emp.lastName;
+    do{
+        std::cout << "ID (non-empty): ";
+        std::cin >> emp.id;
+        if(emp.id.empty())
+            std::cout << "ID cannot be empty\n";
+    }while(emp.id.empty());
+    do{
+        std::cout << "First name (non-empty): ";
+        std::cin >> emp.name;
+        if(emp.name.empty())
+            std::cout << "Name cannot be empty\n";
+    }while(emp.name.empty());
+    do{
+        std::cout << "Last name (non-empty): ";
+        std::cin >> emp.lastName;
+        if(emp.lastName.empty())
+            std::cout << "Last name cannot be empty\n";
+    }while(emp.lastName.empty());
     std::cin.ignore();
-    std::cout << "Address: ";
-    std::getline(std::cin, emp.address);
-    std::cout << "Salary: ";
-    std::cin >> emp.salary;
-    std::cout << "Branch code: ";
-    std::cin >> emp.branchCode;
+    do{
+        std::cout << "Address (non-empty): ";
+        std::getline(std::cin, emp.address);
+        if(emp.address.empty())
+            std::cout << "Address cannot be empty\n";
+    }while(emp.address.empty());
+    do{
+        std::cout << "Salary (must be positive): ";
+        std::cin >> emp.salary;
+        if(emp.salary <= 0)
+            std::cout << "Salary must be positive\n";
+    }while(emp.salary <= 0);
+    do{
+        std::cout << "Branch code (non-empty): ";
+        std::cin >> emp.branchCode;
+        if(emp.branchCode.empty())
+            std::cout << "Branch code cannot be empty\n";
+    }while(emp.branchCode.empty());
     emp.hireDate = DateNow();
 
     EmployeeArray arr = loadEmployeesFromFile("../data/employees.json");
@@ -517,6 +524,7 @@ void resizeEmployeeArray(EmployeeArray& arr) {
 }
 
 int addEmployee(EmployeeArray& arr, const Employee& emp) {
+    // Check if ID already exists
     for (int i = 0; i < arr.size; i++) {
         if (arr.employees[i].id == emp.id) {
             printLine("Error: Employee ID already exists!");
@@ -536,6 +544,7 @@ int addEmployee(EmployeeArray& arr, const Employee& emp) {
 bool deleteEmployee(EmployeeArray& arr, const string& id) {
     for (int i = 0; i < arr.size; i++) {
         if (arr.employees[i].id == id) {
+            // Shift elements to remove the employee
             for (int j = i; j < arr.size - 1; j++) {
                 arr.employees[j] = arr.employees[j + 1];
             }
@@ -567,11 +576,13 @@ void displayEmployeesAlphabetical(const EmployeeArray& arr) {
         return;
     }
 
+    // Create a temporary array for sorting
     Employee* temp = new Employee[arr.size];
     for (int i = 0; i < arr.size; i++) {
         temp[i] = arr.employees[i];
     }
 
+    // Bubble sort by last name
     for (int i = 0; i < arr.size - 1; i++) {
         for (int j = 0; j < arr.size - i - 1; j++) {
             if (temp[j].lastName > temp[j + 1].lastName) {
@@ -602,10 +613,12 @@ void displayEmployeesByBranch(const EmployeeArray& arr) {
 
     cout << "Employees grouped by branch:" << endl;
 
+    // Simple grouping by branch
     for (int i = 0; i < arr.size; i++) {
         string currentBranch = arr.employees[i].branchCode;
         bool branchPrinted = false;
 
+        // Check if we already printed this branch
         for (int j = 0; j < i; j++) {
             if (arr.employees[j].branchCode == currentBranch) {
                 branchPrinted = true;
@@ -660,20 +673,22 @@ void displayEarliestLatestEmployees(const EmployeeArray& arr) {
 void pendingLoansMenu() {
     clearScreen();
     printLine("Pending Loans Menu");
-
+    
+    // Parse loans from loans.json
     loanList pendingLoans = parseLoansFile();
-
+    
     if (pendingLoans.size == 0) {
         std::cout << "No pending loans to process." << std::endl;
         std::cin.ignore();
         std::cin.get();
         return;
     }
-
+    
+    // Display all pending loans
     std::cout << "\n=== Pending Loan Requests ===" << std::endl;
     LoanNode* curr = pendingLoans.head;
     int loanNum = 1;
-
+    
     while (curr) {
         std::cout << "\n" << loanNum << ". Loan ID: " << curr->data.id 
                   << " | Account: " << curr->data.acc_num
@@ -683,37 +698,40 @@ void pendingLoansMenu() {
         curr = curr->next;
         loanNum++;
     }
-
+    
+    // Prompt employee to select a loan to process
     std::cout << "\n0. Exit" << std::endl;
     std::cout << "Select loan number to process (or 0 to exit): ";
     int choice;
     std::cin >> choice;
-
+    
     if (choice == 0) {
         return;
     }
-
+    
     if (choice < 1 || choice > pendingLoans.size) {
         std::cout << "Invalid choice." << std::endl;
         std::cin.ignore();
         std::cin.get();
         return;
     }
-
+    
+    // Get the selected loan
     curr = pendingLoans.head;
     int count = 1;
     while (curr && count != choice) {
         curr = curr->next;
         count++;
     }
-
+    
     if (!curr) {
         std::cout << "Loan not found." << std::endl;
         return;
     }
-
+    
     Loan selectedLoan = curr->data;
-
+    
+    // Display loan details
     std::cout << "\n=== Loan Details ===" << std::endl;
     std::cout << "ID: " << selectedLoan.id << std::endl;
     std::cout << "Account: " << selectedLoan.acc_num << std::endl;
@@ -722,86 +740,51 @@ void pendingLoansMenu() {
     std::cout << "Interest Rate: " << selectedLoan.interest << "%" << std::endl;
     std::cout << "Start Date: " << selectedLoan.start << std::endl;
     std::cout << "End Date: " << selectedLoan.end << std::endl;
-
+    
+    // Ask for approval
     std::cout << "\nAccept loan? (1=Yes, 0=No): ";
     int approval;
     std::cin >> approval;
-
+    
     if (approval == 1) {
+        // Set status to active
         selectedLoan.status = "active";
         selectedLoan.start = DateNow();
-
+        
+        // Get customer and add loan
         customerList customers = parseCustomers();
         customerNode* custNode = customers.head;
         bool found = false;
-
+        
         while (custNode) {
             if (custNode->data.acc_num == selectedLoan.acc_num) {
                 addLoan(custNode->data.loans, selectedLoan);
                 found = true;
-
+                
+                // Update customer balance with loan amount
                 custNode->data.balance += selectedLoan.amount;
-
+                
+                // Dump updated customer
                 updateData(custNode->data);
-
-                LoanNode* toRemove = pendingLoans.head;
-                if (toRemove && toRemove->data.id == selectedLoan.id) {
-                    pendingLoans.head = toRemove->next;
-                    delete toRemove;
-                    pendingLoans.size--;
-                } else {
-                    while (toRemove && toRemove->next) {
-                        if (toRemove->next->data.id == selectedLoan.id) {
-                            LoanNode* temp = toRemove->next;
-                            toRemove->next = temp->next;
-                            delete temp;
-                            pendingLoans.size--;
-                            break;
-                        }
-                        toRemove = toRemove->next;
-                    }
-                }
-
-                std::ofstream loansFile("../data/loans.json");
-                if (loansFile.is_open()) {
-                    loansFile << "{\n  \"loans\":[\n";
-                    LoanNode* ln = pendingLoans.head;
-                    bool first = true;
-                    while (ln) {
-                        if (!first) loansFile << ",\n";
-                        loansFile << "\t{\n"
-                                  << "\t  \"id\":\"" << ln->data.id << "\",\n"
-                                  << "\t  \"acc_num\":\"" << ln->data.acc_num << "\",\n"
-                                  << "\t  \"type\":\"" << ln->data.type << "\",\n"
-                                  << "\t  \"amount\":" << ln->data.amount << ",\n"
-                                  << "\t  \"interest\":" << ln->data.interest << ",\n"
-                                  << "\t  \"remain_balance\":" << ln->data.remain_balance << ",\n"
-                                  << "\t  \"start\":\"" << ln->data.start << "\",\n"
-                                  << "\t  \"end\":\"" << ln->data.end << "\",\n"
-                                  << "\t  \"status\":\"" << ln->data.status << "\"\n"
-                                  << "\t}";
-                        first = false;
-                        ln = ln->next;
-                    }
-                    loansFile << " ]\n}\n";
-                    loansFile.close();
-                }
-
+                
                 clearScreen();
                 printLine("Loan Approved");
-                std::cout << "Loan ID: " << selectedLoan.id << " has been approved and added to customer account." << std::endl;               
-                return;
+                std::cout << "Loan ID: " << selectedLoan.id << " has been approved and added to customer account." << std::endl;
+                std::cout << "\nCustomer Details:" << std::endl;
+                displayCustomer(custNode->data);
+                
+                break;
             }
             custNode = custNode->next;
         }
-
+        
         if (!found) {
             std::cout << "Customer account not found!" << std::endl;
         }
     } else {
         std::cout << "Loan rejected." << std::endl;
     }
-
+    
     std::cin.ignore();
     std::cin.get();
 }
@@ -832,6 +815,8 @@ EmployeeArray loadEmployeesFromFile(const string& filename) {
     std::ifstream file(filename, std::ios::binary);
 
     if (!file.is_open()) {
+        // No file: create default admin and also write a JSON file so subsequent runs
+        // will find a valid JSON employees file.
         cout << "No existing employee file found. Creating default admin 'rihab' (ID 101)." << endl;
         Employee admin;
         admin.id = "101";
@@ -843,6 +828,7 @@ EmployeeArray loadEmployeesFromFile(const string& filename) {
         admin.branchCode = "001";
         addEmployee(arr, admin);
 
+        // Write a small JSON array containing the admin so the JSON parser can read it later.
         std::ofstream outf(filename, std::ios::binary);
         if (outf.is_open()) {
             outf << "[\n";
@@ -859,18 +845,22 @@ EmployeeArray loadEmployeesFromFile(const string& filename) {
             outf.close();
         }
         else {
+            // As a fallback, still save CSV via existing method to avoid data loss
             saveEmployeesToFile(arr, filename);
         }
         return arr;
     }
 
+    // Read entire file into buffer
     std::string buffer((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
     file.close();
 
     const char* c = buffer.c_str();
     emp_skipWhitespace(c);
 
+    // If file appears to be JSON (starts with '[' or '{'), parse JSON objects.
     if (*c == '[' || *c == '{') {
+        // If it's an array, skip '[' and parse objects until ']'
         if (*c == '[') { c++; }
         while (*c) {
             emp_skipWhitespace(c);
@@ -885,11 +875,13 @@ EmployeeArray loadEmployeesFromFile(const string& filename) {
                 break;
             }
             else {
+                // skip other characters (commas, whitespace)
                 c++;
             }
         }
     }
     else {
+        // Fallback: older CSV format (one record per line). Parse lines.
         std::istringstream ss(buffer);
         std::string line;
         while (std::getline(ss, line)) {
@@ -897,6 +889,7 @@ EmployeeArray loadEmployeesFromFile(const string& filename) {
             Employee emp;
             size_t pos = 0;
             size_t lastPos = 0;
+            // Parse CSV line
             pos = line.find(',', lastPos);
             if (pos == std::string::npos) continue;
             emp.id = line.substr(lastPos, pos - lastPos);
@@ -918,7 +911,18 @@ EmployeeArray loadEmployeesFromFile(const string& filename) {
 
             lastPos = pos + 1;
             pos = line.find(',', lastPos);
+            if (pos == std::string::npos) continue;
+            try {
+                emp.salary = std::stod(line.substr(lastPos, pos - lastPos));
+            }
+            catch (...) {
+                emp.salary = 0.0;
+            }
+
+            lastPos = pos + 1;
+            pos = line.find(',', lastPos);
             if (pos == std::string::npos) {
+                // last field is hireDate then branchCode may be missing
                 emp.hireDate = line.substr(lastPos);
                 emp.branchCode = "";
             }
@@ -932,4 +936,3 @@ EmployeeArray loadEmployeesFromFile(const string& filename) {
     }
     return arr;
 }
-

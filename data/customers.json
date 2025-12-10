@@ -1,53 +1,6 @@
 {
 	"Customers" :[
 	 {
-	  "acc_num":"102",
-	  "acc_type":"deposit",
-	  "iban":"90102393212",
-	  "branch_code":"x",
-	  "name":"mohamed",
-	  "opening_date":"31/07/2006",
-	  "status":"CLOSED",
-	  "balance":21650.000000,
-	  "loans":[
-		 {
-			  "id":"0x12",
-			  "acc_num":"",
-			  "type":"withdraw",
-			  "amount":11.000000,
-			  "interest":-0.000000,
-			  "remain_balance":200.000000,
-			  "start":"16/11/2025",
-			  "end":"26/12/2025",
-			  "status":"ended"
-			 },
-		 {
-			  "id":"0x22",
-			  "acc_num":"",
-			  "type":"deposit",
-			  "amount":22.000000,
-			  "interest":-0.000000,
-			  "remain_balance":100.000000,
-			  "start":"16/11/2035",
-			  "end":"26/12/2075",
-			  "status":"paid"
-			 },
-		 {
-			  "id":"1x496",
-			  "acc_num":"102",
-			  "type":"car",
-			  "amount":1000.000000,
-			  "interest":1.000000,
-			  "remain_balance":-350.000000,
-			  "start":"10/12/2025",
-			  "end":".",
-			  "status":"active"
-			 }
-		 ],
-	  "transactions":[
-		  ]
-  	},
-	 {
 	  "acc_num":"2323",
 	  "acc_type":"credit",
 	  "iban":"7777777777",

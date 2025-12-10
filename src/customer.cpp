@@ -24,11 +24,14 @@ int userInterface(customer &cust)
     };
     printOptions(options, 7);
     cin >> choice;
-    if (choice < 1 || choice > 7)
-    {
-        printLine("Invalid choice");
-        userInterface(cust);
-    }
+    do{
+        if (choice < 1 || choice > 7)
+        {
+            printLine("Invalid choice. Please enter 1-7");
+            printOptions(options, 7);
+            cin >> choice;
+        }
+    }while(choice < 1 || choice > 7);
     switch (choice) {
         case 1 :
         {
@@ -127,13 +130,27 @@ int submitNewLoan(customer &cust)
     do{
         cout << "Loan type (car, home, student, business) : ";
         cin >> type;
+        if(type != "car" && type != "home" && type != "student" && type != "business" )
+            cout << "Invalid type. Please enter: car, home, student, or business\n";
     }while(type != "car" && type != "home" && type != "student" && type != "business" );
-    cout << "Loan amount : ";
-    cin >> amount;
-    cout << "Loan start ";
-    cin >> start;
-    cout << "Loan end ";
-    cin >> end;
+    do{
+        cout << "Loan amount (must be positive) : ";
+        cin >> amount;
+        if(amount <= 0)
+            cout << "Invalid amount. Please enter a positive number\n";
+    }while(amount <= 0);
+    do{
+        cout << "Loan start date (YYYY-MM-DD) : ";
+        cin >> start;
+        if(start.length() != 10)
+            cout << "Invalid date format. Use YYYY-MM-DD\n";
+    }while(start.length() != 10);
+    do{
+        cout << "Loan end date (YYYY-MM-DD) : ";
+        cin >> end;
+        if(end.length() != 10)
+            cout << "Invalid date format. Use YYYY-MM-DD\n";
+    }while(end.length() != 10);
     status = "";
     id = "1x"+ to_string((abs(std::rand()*10000)%1000));
     remain = cust.balance - amount;
@@ -180,19 +197,18 @@ int submitNewLoan(customer &cust)
 };
 
 int withdraw(customer &cust){
-    //TODO
     clearScreen();
     printLine("Select withdraw amount");
     string options[3] = {"10.0","20.0","50.0"};
     float amounts[3] = {10.0,20.0,50.0};
     printOptions(options, 3);
     int choice;
-    cin >> choice;
-    while (choice < 1 || choice > 3)
-    {
-        printLine("Invalid option");
+    do{
+        cout << "Enter choice (1-3): ";
         cin >> choice;
-    };
+        if(choice < 1 || choice > 3)
+            cout << "Invalid option. Please enter 1, 2, or 3\n";
+    }while (choice < 1 || choice > 3);
 
     if (amounts[choice-1] > cust.balance)
     {
@@ -207,12 +223,14 @@ int withdraw(customer &cust){
 }
 
 int deposit(customer &cust){
-        //TODO
         clearScreen();
         printLine("Input deposit amount");
         float amount;
         do {
+            cout << "Enter amount (must be positive): ";
             cin >> amount;
+            if(amount <= 0)
+                cout << "Invalid amount. Please enter a positive number\n";
         }while (amount <= 0);
         tran new_t = {"0x"+to_string( abs((std::rand()*1000000)%10000)),cust.acc_num,"deposit",amount,DateNow(),false};
         addTran(cust.transactions, new_t);
